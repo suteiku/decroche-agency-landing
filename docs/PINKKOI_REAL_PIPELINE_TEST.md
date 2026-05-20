@@ -1,47 +1,89 @@
-# Pink Koï — vrai test interne du pipeline Decroche
+# Pink Koï — pipeline renforcé pour closer
 
 Statut : test interne uniquement. Ne pas envoyer au restaurant. Ne pas contacter. Ne pas réserver.
 
-## Ce qui est maintenant implémenté dans le site Next.js
+## Pages renforcées
 
-- `/audit/pink-koi-test-interne` : page audit premium, partageable en interne.
-- `/audit/pink-koi-test-interne/print` : version print de l’audit.
-- `/lab/pink-koi` : cockpit complet du test : data publique, CRM mock, assistant, QA, plan après closing.
+- `/audit/pink-koi-test-interne` : audit premium orienté closing.
+- `/audit/pink-koi-test-interne/print` : version print.
+- `/lab/pink-koi` : cockpit complet avec DA, décisions UX, stack, RGPD, CRM mock, assistant, QA et après closing.
 - `/api/audit/pink-koi-test-interne` : payload JSON audit.
-- `/api/pink-koi/qa` : résultat QA automatique de l’assistant prototype.
+- `/api/pink-koi/qa` : QA agent + stack + garde-fous.
 
-## Pipeline testé
+## Ce qui a été renforcé
+
+### DA / animations
+
+- Fond chaud Decroche conservé.
+- Typographie éditoriale conservée.
+- Accents noir/bleu conservés.
+- Ajout de reveals doux sur cartes et sections.
+- Ajout d’effets smooth : shimmer, scanline, grille légère, float.
+- Réutilisation des animations existantes : sphère et vague canvas.
+- Respect `prefers-reduced-motion`.
+
+### Closing
+
+La page ne se contente plus d’afficher un score. Elle pousse vers une conclusion commerciale :
 
 ```text
-URL réelle Pink Koï
-→ robots.txt + sitemap
-→ pages publiques restaurant
-→ extraction des faits utiles
-→ audit JSON
-→ page audit Next.js
-→ fiche CRM Notion mock
-→ simulateur assistant restaurant
-→ QA scénarios normaux / sensibles / attaque
-→ planning après closing
+Le site est déjà premium
+→ mais certaines demandes restent répétitives
+→ on ne refait pas le site
+→ on installe un assistant privé contrôlé
+→ l’équipe garde la décision finale
+→ prototype 10 jours
 ```
 
-## Règles de sécurité
+### Après closing
 
-- Données publiques uniquement.
-- Aucune action sur Zenchef.
-- Aucun formulaire soumis.
-- Aucun contact restaurant.
-- Aucune réservation confirmée.
-- Aucun prix, horaire, allergène ou remboursement inventé.
-- Tout cas sensible va vers humain.
+Le cockpit montre maintenant quoi faire dès que le client dit oui :
 
-## Critère de réussite
+1. Cadrer le flux unique.
+2. Demander les données minimum.
+3. Valider prix, horaires, groupes, allergènes, canal de transfert.
+4. Construire l’assistant privé.
+5. Tester normal/sensible/attaque.
+6. Go/No-Go.
+7. Pilote supervisé.
 
-Le test est considéré solide si :
+### Stack
 
-- la page audit charge sans erreur ;
-- l’API audit retourne le JSON ;
-- l’API QA retourne 100% de scénarios passants ;
-- le simulateur ne confirme jamais une réservation ;
-- les allergies/plaintes/paiements vont vers humain ;
-- les incertitudes deviennent des questions à demander après closing.
+V1 volontairement sûre :
+
+- Next.js App Router.
+- Audit JSON typé.
+- CRM Notion mock ou manuel.
+- Assistant privé non connecté aux actions sensibles.
+- Pas de Zenchef, email, téléphone ou paiement automatisé au départ.
+
+Après validation seulement :
+
+- Notion API avec clé en `.env`.
+- API LLM après vérification DPA/conditions.
+- Tracking conforme.
+- Connecteurs progressifs avec rollback.
+
+### RGPD / légal / ChatGPT
+
+Garde-fous visibles :
+
+- finalité documentée ;
+- minimisation ;
+- pas de données sensibles inutiles ;
+- pas de secrets en prompt/Git/Notion/Telegram ;
+- logs filtrés ;
+- droit de suppression/export ;
+- revue humaine pour allergènes, plaintes, réservations, paiement/litige.
+
+Important : ce n’est pas un avis juridique. Avant production réelle, valider le cadre client et, si nécessaire, avec un expert/partenaire qualifié.
+
+## Décision produit
+
+Pour closer, ne pas vendre “IA”. Vendre :
+
+> Prototype demandes entrantes restaurant — 10 jours.
+
+Promesse prudente :
+
+> On teste un assistant privé qui répond aux questions répétitives et prépare un résumé exploitable par l’équipe, sans toucher aux actions sensibles.

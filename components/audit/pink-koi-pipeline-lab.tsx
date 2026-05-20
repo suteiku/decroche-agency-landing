@@ -1,12 +1,25 @@
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, Database, FileJson, GitBranch, ShieldCheck } from "lucide-react"
+import {
+  ArrowRight,
+  CheckCircle2,
+  Database,
+  FileJson,
+  GitBranch,
+  ShieldCheck,
+  Sparkles,
+  TimerReset,
+} from "lucide-react"
 
 import { RestaurantAgentSimulator } from "@/components/audit/restaurant-agent-simulator"
+import { AnimatedSphere } from "@/components/landing/animated-sphere"
 import { Button } from "@/components/primitives/button"
 import {
   pinkKoiAudit,
+  pinkKoiComplianceGates,
   pinkKoiCrmRecord,
   pinkKoiDeliveryPlan,
+  pinkKoiDesignDecisions,
+  pinkKoiImplementationStack,
   pinkKoiPublicSnapshot,
   runPinkKoiQa,
 } from "@/lib/pink-koi-test"
@@ -15,7 +28,7 @@ import { safeExternalRel } from "@/lib/site"
 function SectionIntro({ kicker, title, text }: { kicker: string; title: string; text: string }) {
   return (
     <div className="mx-auto mb-8 max-w-3xl text-center">
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
+      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground shadow-sm backdrop-blur">
         <span className="size-1.5 rounded-full bg-primary" />
         {kicker}
       </div>
@@ -36,7 +49,7 @@ export function PinkKoiPipelineLab() {
             Decroche<span className="text-primary">.</span>
           </Link>
           <span className="hidden rounded-full bg-foreground px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-background sm:inline-flex">
-            Cockpit interne
+            Cockpit closing
           </span>
           <Button asChild size="sm" variant="outline">
             <Link href={`/audit/${pinkKoiAudit.slug}`}>Voir audit</Link>
@@ -44,20 +57,24 @@ export function PinkKoiPipelineLab() {
         </div>
       </div>
 
-      <section className="relative px-4 pb-14 pt-28 sm:px-6 lg:px-8">
+      <section className="relative px-4 pb-14 pt-16 sm:px-6 lg:px-8 lg:pt-24">
+        <div className="audit-grid-bg absolute inset-0 opacity-60" aria-hidden="true" />
+        <div className="absolute right-[-11rem] top-8 size-[32rem] opacity-20" aria-hidden="true">
+          <AnimatedSphere />
+        </div>
         <div className="absolute left-1/2 top-24 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl">
-          <div className="rounded-[3rem] border border-foreground/10 bg-white/70 p-6 shadow-[0_40px_120px_rgba(15,23,42,0.10)] backdrop-blur sm:p-10 lg:p-12">
+          <div className="audit-reveal rounded-[3rem] border border-foreground/10 bg-white/72 p-6 shadow-[0_40px_120px_rgba(15,23,42,0.10)] backdrop-blur sm:p-10 lg:p-12">
             <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
               <div>
                 <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
                   Pipeline réel — Pink Koï
                 </p>
                 <h1 className="mt-5 max-w-4xl font-display text-6xl leading-[0.9] tracking-[-0.055em] text-balance sm:text-7xl lg:text-8xl">
-                  Pas un simple test. Un parcours Decroche complet.
+                  Un audit qui doit conduire au closing.
                 </h1>
                 <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-                  Cette page vérifie le vrai enchaînement : collecte publique, audit web, CRM mock, assistant prototype, QA, limites et plan après closing. Rien n’est envoyé au restaurant.
+                  Le cockpit vérifie tout le parcours : DA premium, audit, CRM, stack, RGPD, assistant prototype, QA et plan d’intervention après signature.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button asChild size="lg">
@@ -77,15 +94,51 @@ export function PinkKoiPipelineLab() {
                   { label: "Score audit", value: `${pinkKoiAudit.score}/100` },
                   { label: "QA agent", value: `${qa.passed}/${qa.total}` },
                   { label: "Sources publiques", value: String(pinkKoiPublicSnapshot.sources.length) },
-                  { label: "CRM", value: "mock Notion" },
-                ].map((metric) => (
-                  <div key={metric.label} className="rounded-[2rem] border border-foreground/10 bg-background/80 p-5">
+                  { label: "Mode", value: "safe V1" },
+                ].map((metric, index) => (
+                  <div
+                    key={metric.label}
+                    className="audit-reveal rounded-[2rem] border border-foreground/10 bg-background/80 p-5 shadow-sm"
+                    style={{ animationDelay: `${120 + index * 70}ms` }}
+                  >
                     <div className="font-display text-4xl leading-none">{metric.value}</div>
                     <div className="mt-2 text-sm text-muted-foreground">{metric.label}</div>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionIntro
+            kicker="DA / UX"
+            title="Ce qu’on garde, ce qu’on ajoute, ce qu’on enlève"
+            text="L’audit reprend la DA du site Decroche mais retire tout ce qui n’aide pas à décider. Le prospect doit voir le problème, le plan et la prochaine étape."
+          />
+          <div className="grid gap-5 lg:grid-cols-3">
+            {pinkKoiDesignDecisions.map((group, index) => (
+              <article
+                key={group.title}
+                className="audit-reveal rounded-[2.25rem] border border-foreground/10 bg-white/70 p-6 shadow-sm backdrop-blur"
+                style={{ animationDelay: `${index * 90}ms` }}
+              >
+                <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  {index === 0 ? <Sparkles className="size-6" aria-hidden="true" /> : index === 1 ? <ArrowRight className="size-6" aria-hidden="true" /> : <ShieldCheck className="size-6" aria-hidden="true" />}
+                </div>
+                <h3 className="font-display text-3xl leading-none">{group.title}</h3>
+                <ul className="mt-5 space-y-3 text-sm leading-6 text-muted-foreground">
+                  {group.items.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -119,8 +172,12 @@ export function PinkKoiPipelineLab() {
                 title: "QA + garde-fous",
                 text: "Scénarios normaux, sensibles, attaque prompt injection.",
               },
-            ].map((step) => (
-              <div key={step.title} className="rounded-[2rem] border border-foreground/10 bg-white/70 p-6 shadow-sm backdrop-blur">
+            ].map((step, index) => (
+              <div
+                key={step.title}
+                className="audit-reveal rounded-[2rem] border border-foreground/10 bg-white/70 p-6 shadow-sm backdrop-blur transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_28px_76px_rgba(15,23,42,0.09)]"
+                style={{ animationDelay: `${index * 70}ms` }}
+              >
                 <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                   <step.icon className="size-6" aria-hidden="true" />
                 </div>
@@ -168,6 +225,42 @@ export function PinkKoiPipelineLab() {
       <section className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionIntro
+            kicker="Stack & conformité"
+            title="Prêt sans API d’abord, connectable proprement ensuite"
+            text="Le système est volontairement safe en V1 : il prouve la valeur sans demander de secrets ni brancher des actions sensibles."
+          />
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-[2.5rem] border border-foreground/10 bg-white/70 p-6 shadow-sm sm:p-8">
+              <div className="space-y-4">
+                {pinkKoiImplementationStack.map((item) => (
+                  <div key={item.layer} className="rounded-2xl border border-foreground/10 bg-background/70 p-4">
+                    <h3 className="font-display text-2xl leading-none">{item.layer}</h3>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground"><span className="font-semibold text-foreground">V1 : </span>{item.v1}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground"><span className="font-semibold text-foreground">Ensuite : </span>{item.later}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-[2.5rem] border border-primary/20 bg-primary/8 p-6 shadow-sm sm:p-8">
+              <div className="mb-5 flex items-center gap-3">
+                <ShieldCheck className="size-6 text-primary" aria-hidden="true" />
+                <h3 className="font-display text-4xl leading-none">Gates RGPD / ChatGPT</h3>
+              </div>
+              <ul className="space-y-3 text-sm leading-6 text-muted-foreground">
+                {pinkKoiComplianceGates.map((gate) => (
+                  <li key={gate} className="rounded-2xl border border-foreground/10 bg-background/70 p-3">
+                    {gate}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionIntro
             kicker="CRM Notion V1"
             title="Une fiche simple, pas un CRM qui enterre l’information"
             text="Le mock respecte la règle Decroche : si le champ ne sert pas à décider la prochaine action, il ne rentre pas dans le CRM V1."
@@ -202,8 +295,12 @@ export function PinkKoiPipelineLab() {
             text="Même sur un test fictif, on simule la livraison client pour vérifier que Decroche ne close pas dans le vide."
           />
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {pinkKoiDeliveryPlan.map((step) => (
-              <div key={`${step.day}-${step.title}`} className="rounded-[2rem] border border-foreground/10 bg-white/70 p-6 shadow-sm">
+            {pinkKoiDeliveryPlan.map((step, index) => (
+              <div
+                key={`${step.day}-${step.title}`}
+                className="audit-reveal rounded-[2rem] border border-foreground/10 bg-white/70 p-6 shadow-sm"
+                style={{ animationDelay: `${index * 65}ms` }}
+              >
                 <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary">{step.day}</div>
                 <h3 className="mt-4 font-display text-3xl leading-none">{step.title}</h3>
                 <p className="mt-4 text-sm leading-6 text-muted-foreground">{step.output}</p>
@@ -219,6 +316,10 @@ export function PinkKoiPipelineLab() {
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.28em] text-muted-foreground">Limites non négociables</p>
               <h2 className="mt-4 font-display text-5xl leading-none tracking-tight">Ce test reste interne.</h2>
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm text-background">
+                <TimerReset className="size-4" aria-hidden="true" />
+                Prochaine action : générer 10 audits internes comparables
+              </div>
             </div>
             <ul className="grid gap-3 text-sm leading-6 text-muted-foreground sm:grid-cols-2">
               {pinkKoiPublicSnapshot.strictLimits.map((limit) => (

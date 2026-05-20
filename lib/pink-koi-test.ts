@@ -262,6 +262,126 @@ export const pinkKoiCrmRecord = {
     "Vitrine premium + réservation Zenchef. Opportunité test : FAQ/réservation/groupes/allergies. Agent réel non prêt sans confirmation client.",
 } as const
 
+export const pinkKoiCloseBridge = [
+  {
+    label: "Ce qu’on voit",
+    value: "Menu, prix, horaires et réservation existent déjà.",
+    closeAngle: "Donc le sujet n’est pas de refaire le site : c’est de réduire les questions répétitives avant réservation.",
+  },
+  {
+    label: "Ce qui bloque",
+    value: "Groupes, anniversaires, allergènes, boissons incluses et dernières commandes demandent une réponse humaine.",
+    closeAngle: "Le prototype commence par aider l’équipe, pas par remplacer Zenchef ou le téléphone.",
+  },
+  {
+    label: "Ce qu’on propose",
+    value: "Un assistant privé qui répond, collecte les infos et prépare un résumé équipe.",
+    closeAngle: "Décision finale humaine, test court, aucune intégration risquée au départ.",
+  },
+] as const
+
+export const pinkKoiDesignDecisions = [
+  {
+    title: "À maintenir",
+    items: [
+      "Fond chaud Decroche, typographie éditoriale, accents noir/bleu.",
+      "Animations canvas existantes : sphère, vague, grain, reveal doux.",
+      "Ton prudent : hypothèses, limites, décision humaine finale.",
+    ],
+  },
+  {
+    title: "À ajouter",
+    items: [
+      "Pont commercial clair entre audit et rendez-vous diagnostic.",
+      "Timeline après closing pour montrer que Decroche sait intervenir.",
+      "Stack et garde-fous RGPD/LLM visibles avant toute intégration API.",
+    ],
+  },
+  {
+    title: "À enlever / éviter",
+    items: [
+      "Blocs trop techniques avant que le prospect comprenne la valeur.",
+      "Claims flous type IA magique, 100% automatique, CA garanti.",
+      "Toute donnée client réelle tant que le cadre RGPD n’est pas validé.",
+    ],
+  },
+] as const
+
+export const pinkKoiPostCloseActions = [
+  {
+    phase: "1. Cadrer",
+    action: "Envoyer le formulaire data léger + confirmer un seul flux : demandes entrantes restaurant.",
+    riskGate: "Pas de données sensibles inutiles. Pas de secret. Pas d’export complet CRM au départ.",
+  },
+  {
+    phase: "2. Valider",
+    action: "Faire confirmer prix, horaires, groupes, allergènes, anniversaires, canal de transfert.",
+    riskGate: "Toute incertitude reste marquée jusqu’à validation écrite du client.",
+  },
+  {
+    phase: "3. Construire",
+    action: "Créer l’assistant privé avec base de connaissance validée et sorties structurées.",
+    riskGate: "Aucune réservation réelle, paiement ou remboursement automatisé en V1.",
+  },
+  {
+    phase: "4. Tester",
+    action: "Passer les scénarios normaux, sensibles, contradictions et prompt injection.",
+    riskGate: "Go/No-Go obligatoire avant toute démo client ou pilote.",
+  },
+  {
+    phase: "5. Piloter",
+    action: "Lancer un pilote supervisé : résumé équipe, corrections, rapport hebdo simple.",
+    riskGate: "Logs minimisés, accès limités, suppression possible sur demande.",
+  },
+] as const
+
+export const pinkKoiImplementationStack = [
+  {
+    layer: "Audit & pages",
+    v1: "Next.js App Router, payload JSON typé, routes privées non indexées.",
+    later: "Génération automatique multi-restaurants + tracking interne conforme.",
+  },
+  {
+    layer: "CRM Decroche",
+    v1: "Notion manuel ou mock local : statut, score, prochaine action, lien audit.",
+    later: "Notion API seulement quand la clé est stockée en .env et jamais dans Git.",
+  },
+  {
+    layer: "IA / ChatGPT",
+    v1: "Prototype contrôlé avec données publiques ou validées, sans secrets ni données sensibles.",
+    later: "API LLM après DPA/conditions vérifiées, minimisation, rétention cadrée, logs filtrés.",
+  },
+  {
+    layer: "Connecteurs restaurant",
+    v1: "Aucune action Zenchef/téléphone/email : seulement brouillon + résumé équipe.",
+    later: "Connexion progressive si le client valide le canal, les accès, les limites et le rollback.",
+  },
+] as const
+
+export const pinkKoiComplianceGates = [
+  "Base légale et finalité documentées avant toute donnée client réelle.",
+  "Minimisation : uniquement ce qui sert à répondre aux demandes entrantes.",
+  "Pas de données sensibles dans les prompts si elles ne sont pas indispensables.",
+  "Accès séparés : secrets en .env/plateforme, jamais dans Git, Notion ou Telegram.",
+  "Information client claire : assistant d’aide, décision humaine, limites connues.",
+  "Droit de suppression/export prévu dans le runbook client.",
+  "Revue humaine obligatoire pour allergènes, plainte, paiement, réservation et litige.",
+] as const
+
+export const pinkKoiCloseOffer = {
+  title: "Prototype demandes entrantes — restaurant",
+  priceNote: "Bêta contrôlée : prix à valider par Bruno avant proposition réelle.",
+  promise:
+    "En 10 jours, on teste un assistant privé qui répond aux questions répétitives et prépare un résumé exploitable par l’équipe.",
+  includes: [
+    "Audit court par lien",
+    "Base de connaissance validée",
+    "Assistant privé non connecté aux actions sensibles",
+    "10 à 20 scénarios QA",
+    "Guide équipe + limites + recommandation pilote",
+  ],
+} as const
+
 export const pinkKoiDeliveryPlan = [
   {
     day: "J0",

@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server"
 
-import { pinkKoiAudit, pinkKoiCrmRecord, pinkKoiPublicSnapshot, runPinkKoiQa } from "@/lib/pink-koi-test"
+import {
+  pinkKoiAudit,
+  pinkKoiCloseOffer,
+  pinkKoiComplianceGates,
+  pinkKoiCrmRecord,
+  pinkKoiImplementationStack,
+  pinkKoiPostCloseActions,
+  pinkKoiPublicSnapshot,
+  runPinkKoiQa,
+} from "@/lib/pink-koi-test"
 
 export function GET() {
   return NextResponse.json({
@@ -10,7 +19,11 @@ export function GET() {
       score: pinkKoiAudit.score,
       verdict: pinkKoiAudit.verdict,
     },
+    offer: pinkKoiCloseOffer,
     crm: pinkKoiCrmRecord,
+    stack: pinkKoiImplementationStack,
+    complianceGates: pinkKoiComplianceGates,
+    postCloseActions: pinkKoiPostCloseActions,
     publicSnapshot: {
       capturedAt: pinkKoiPublicSnapshot.capturedAt,
       targetUrl: pinkKoiPublicSnapshot.targetUrl,

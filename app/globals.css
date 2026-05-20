@@ -243,6 +243,88 @@
         border-box;
     background-size: 100% 100%, 8px 8px;
   }
+
+  .audit-reveal {
+    animation: audit-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+
+  @keyframes audit-reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .audit-float {
+    animation: audit-float 8s ease-in-out infinite;
+  }
+
+  @keyframes audit-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0) rotate(1deg);
+    }
+  }
+
+  .audit-shimmer {
+    background-size: 220% 100%;
+    animation: audit-shimmer 7s ease-in-out infinite;
+  }
+
+  @keyframes audit-shimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .audit-scanline {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .audit-scanline::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      color-mix(in oklch, var(--primary) 18%, transparent),
+      transparent
+    );
+    transform: translateY(-100%);
+    animation: audit-scanline 6s ease-in-out infinite;
+  }
+
+  @keyframes audit-scanline {
+    0%,
+    22%,
+    100% {
+      transform: translateY(-100%);
+    }
+    52%,
+    72% {
+      transform: translateY(100%);
+    }
+  }
+
+  .audit-grid-bg {
+    background-image:
+      linear-gradient(color-mix(in oklch, var(--foreground) 7%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklch, var(--foreground) 7%, transparent) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at center, black, transparent 72%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -258,7 +340,11 @@
   .marquee,
   .marquee-reverse,
   .animate-char-in,
-  .line-reveal {
+  .line-reveal,
+  .audit-reveal,
+  .audit-float,
+  .audit-shimmer,
+  .audit-scanline::after {
     animation: none !important;
     filter: none !important;
     opacity: 1 !important;
