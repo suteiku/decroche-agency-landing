@@ -1,29 +1,50 @@
 import React from "react"
-import type { Metadata } from 'next'
-import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import type { Metadata, Viewport } from "next"
+import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
 
-const instrumentSans = Instrument_Sans({ 
+import "./globals.css"
+
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
-  variable: '--font-instrument'
-});
+  variable: "--font-instrument",
+  display: "swap",
+})
 
-const instrumentSerif = Instrument_Serif({ 
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  variable: '--font-instrument-serif'
-});
+  variable: "--font-instrument-serif",
+  display: "swap",
+})
 
-const jetbrainsMono = JetBrains_Mono({ 
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: '--font-jetbrains'
-});
+  variable: "--font-jetbrains",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
-  title: 'Decroche.agency — Assistant Vocal IA pour PME',
-  description: 'Ne perdez plus un appel. Réceptionnez vos clients 24/7 avec une voix humaine en français. Conforme RGPD, hébergé en France.',
-  generator: 'v0.app',
+  title: "Decroche.agency — assistants IA métier pour PME",
+  description:
+    "Decroche installe des assistants IA utiles : réponse, qualification, préparation du rendez-vous et transfert humain quand il faut.",
+  applicationName: "Decroche.agency",
+  authors: [{ name: "Decroche Agency" }],
+  openGraph: {
+    title: "Decroche.agency — assistants IA métier pour PME",
+    description:
+      "Un assistant IA clair, mesurable et supervisé par l’humain pour traiter les demandes répétitives.",
+    locale: "fr_FR",
+    siteName: "Decroche.agency",
+    type: "website",
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: "#fbfaf5",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
 }
 
 export default function RootLayout({
@@ -33,7 +54,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body
+        className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+      >
         {children}
         <Analytics />
       </body>

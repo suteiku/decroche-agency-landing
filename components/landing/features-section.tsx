@@ -5,33 +5,37 @@ import { useEffect, useRef, useState } from "react";
 const features = [
   {
     number: "01",
-    title: "Réception 24/7",
-    description: "Jamais d'appel manqué, même le dimanche soir. Votre assistant décroche en moins d'une sonnerie, à toute heure.",
+    title: "Réponse guidée",
+    description:
+      "L’assistant répond selon vos règles : horaires, services, questions fréquentes, informations à collecter.",
     visual: "reception",
   },
   {
     number: "02",
-    title: "Qualification intelligente",
-    description: "L'IA identifie le motif de l'appel, priorise les leads chauds et redirige vers le bon service.",
+    title: "Qualification claire",
+    description:
+      "Il identifie le motif, le niveau d’urgence, les coordonnées et les éléments utiles avant de transmettre.",
     visual: "qualify",
   },
   {
     number: "03",
-    title: "Prise de RDV & CRM",
-    description: "Intégration directe à votre agenda (Google Calendar, Doctolib) et votre outil de suivi. Zéro saisie manuelle.",
+    title: "Rendez-vous préparé",
+    description:
+      "Il peut préparer un créneau, alimenter un CRM ou créer une fiche de suivi selon vos outils existants.",
     visual: "crm",
   },
   {
     number: "04",
-    title: "Conformité & Transfert",
-    description: "Mention AI Act en début d'appel, transfert humain avec résumé complet de la conversation. Zéro risque juridique.",
+    title: "Transfert humain",
+    description:
+      "Quand la demande sort du cadre, l’humain reprend avec un résumé exploitable et les limites documentées.",
     visual: "transfer",
   },
 ];
 
 function ReceptionVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <defs>
         <clipPath id="receptionClip">
           <rect x="30" y="20" width="140" height="120" rx="4" />
@@ -76,7 +80,7 @@ function ReceptionVisual() {
 
 function QualifyVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <circle cx="100" cy="80" r="12" fill="currentColor">
         <animate attributeName="r" values="12;14;12" dur="2s" repeatCount="indefinite" />
       </circle>
@@ -131,7 +135,7 @@ function QualifyVisual() {
 
 function CrmVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <g>
         <rect x="30" y="50" width="50" height="60" rx="4" fill="none" stroke="currentColor" strokeWidth="2" />
         <text x="55" y="85" textAnchor="middle" fontSize="20" fontFamily="monospace" fill="currentColor">A</text>
@@ -163,7 +167,7 @@ function CrmVisual() {
 
 function TransferVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <path
         d="M 100 20 L 150 40 L 150 90 Q 150 130 100 145 Q 50 130 50 90 L 50 40 Z"
         fill="none"
@@ -230,7 +234,7 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
   return (
     <div
       ref={cardRef}
-      className={`group relative transition-all duration-700 ${
+      className={`group relative transition-[opacity,transform] duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
@@ -294,13 +298,13 @@ export function FeaturesSection() {
             L'offre
           </span>
           <h2
-            className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
+            className={`text-4xl lg:text-6xl font-display tracking-tight transition-[opacity,transform] duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
             Ce que fait votre
             <br />
-            <span className="text-primary">assistant vocal.</span>
+            <span className="text-primary">assistant IA.</span>
           </h2>
         </div>
 

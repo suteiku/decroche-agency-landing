@@ -6,18 +6,18 @@ import { Phone, Brain, Zap, CheckCircle2 } from "lucide-react";
 const steps = [
   {
     number: "I",
-    title: "Audit (30 min)",
-    description: "On analyse vos besoins, votre flux d'appels et vos outils existants. Pas de blabla, juste les faits.",
+    title: "Diagnostic (30 min)",
+    description: "On choisit un flux répétitif, on note les limites et on estime ce qui mérite vraiment un assistant.",
   },
   {
     number: "II",
-    title: "Configuration (10 jours)",
-    description: "Voix française, script métier, intégrations CRM et agenda. On teste en aveugle avant la mise en ligne.",
+    title: "Démo contrôlée (7–10 jours)",
+    description: "Script métier, scénarios de test, voix ou interface, intégrations simples. Pas de mise en prod à l’aveugle.",
   },
   {
     number: "III",
-    title: "Live + Optimisation",
-    description: "Mise en production, monitoring en temps réel et ajustements hebdomadaires. Vous dormez, on travaille.",
+    title: "Installation + suivi",
+    description: "Mise en service progressive, reprise humaine prévue, rapport clair et améliorations mensuelles.",
   },
 ];
 
@@ -30,7 +30,13 @@ function FluxAppel() {
 
   return (
     <div className="w-full max-w-5xl mx-auto">
-      <svg viewBox="0 0 960 300" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        viewBox="0 0 960 300"
+        className="w-full h-auto"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Flux d’appel : appel entrant, qualification, action, résultat confirmé"
+      >
         <defs>
           <linearGradient id="guideLine" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="hsl(190, 100%, 65%)" />
@@ -217,13 +223,13 @@ export function HowItWorksSection() {
             Process
           </span>
           <h2
-            className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
+            className={`text-4xl lg:text-6xl font-display tracking-tight transition-[opacity,transform] duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Trois étapes.
+            De l’idée au test.
             <br />
-            <span className="text-background/50">Zéro complexité.</span>
+            <span className="text-background/50">Puis seulement au déploiement.</span>
           </h2>
         </div>
 
