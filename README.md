@@ -21,7 +21,23 @@ pnpm install
 pnpm dev
 pnpm typecheck
 pnpm build
+pnpm verify:env
 ```
+
+## Environnement / connexions
+
+- `.env.local` existe localement sur le VPS et reste ignoré par Git.
+- `.env.example` liste les variables attendues sans secret.
+- `docs/ENVIRONMENT.md` documente Google Ads Keyword Planner, Composio, IA, Vercel et emails.
+
+Commandes utiles :
+
+```bash
+pnpm verify:env
+pnpm keywords -- "assistant ia" "agence ia" "standard téléphonique ia"
+```
+
+`pnpm verify:env` ne doit jamais afficher de valeur secrète : uniquement `SET`, `MISSING`, statuts HTTP et erreurs redacted.
 
 ## Structure utile
 
