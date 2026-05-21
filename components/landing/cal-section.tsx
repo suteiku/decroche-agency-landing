@@ -45,8 +45,8 @@ export function CalSection() {
             <span className="h-px w-8 bg-accent/40" aria-hidden="true" />
           </span>
           <h2
-            className={`text-balance font-display text-4xl tracking-tight transition-[opacity,transform] duration-700 lg:text-5xl ${
-              isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+            className={`text-balance font-display text-4xl tracking-tight transition-transform duration-700 lg:text-5xl ${
+              isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-100"
             }`}
           >
             Réserver un diagnostic
@@ -56,11 +56,24 @@ export function CalSection() {
         </div>
 
         <div
-          className={`transition-[opacity,transform] duration-1000 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          className={`transition-transform duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-100"
           }`}
         >
           <div className="overflow-hidden rounded-2xl border border-background/10 bg-background/5 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 border-b border-background/10 p-6 text-left sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm leading-6 text-background/70">
+                L’agenda est intégré ici. Si le widget met quelques secondes à charger, le lien direct reste disponible.
+              </p>
+              <a
+                href={site.calUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex shrink-0 items-center justify-center rounded-full bg-background px-5 py-3 text-sm font-semibold text-foreground transition-transform hover:-translate-y-0.5"
+              >
+                Ouvrir Cal.com
+              </a>
+            </div>
             <iframe
               src={`${site.calUrl}?embed=true&theme=dark&layout=month_view`}
               className="min-h-[700px] w-full"

@@ -38,20 +38,20 @@ const topKpis = [
     end: 83,
     suffix: "%",
     label: "des PME perdent des appels hors heures d’ouverture",
-    detail: "Le téléphone continue quand l’équipe sert, encaisse ou n’est plus sur place.",
+    detail: "À appliquer au téléphone Pink Koï : entre deux services, après fermeture ou quand l’équipe sert.",
     icon: PhoneCall,
   },
   {
     end: 900,
     suffix: "€",
     label: "de CA potentiel par appel manqué (max)",
-    detail: "Un groupe, un anniversaire ou une demande entreprise pèse plus qu’une simple table de deux.",
+    detail: "Un groupe, un anniversaire ou une demande entreprise peut peser bien plus qu’une petite table.",
     icon: Euro,
   },
   {
     end: 28000,
     suffix: "€",
-    label: "coût annuel d’un poste réceptionniste",
+    label: "coût annuel d’un poste réceptionniste (35h/semaine)",
     detail: "L’assistant vocal ne remplace pas l’équipe : il évite que le téléphone mange le service.",
     icon: ShieldCheck,
   },
@@ -59,17 +59,17 @@ const topKpis = [
     end: 500,
     prefix: "<",
     suffix: "ms",
-    label: "latence cible pour une conversation fluide",
+    label: "de latence end-to-end pour une conversation fluide",
     detail: "Réponse rapide, voix naturelle, reprise humaine claire quand la demande sort du cadre.",
     icon: Clock,
   },
 ]
 
 const agencyStats = [
-  { value: "83%", label: "d’appels manqués", sub: "HORS HEURES" },
+  { value: "83%", label: "d’appels manqués hors heures", sub: "D’OUVERTURE" },
   { value: "350-900€", label: "CA perdu", sub: "PAR APPEL" },
   { value: "28 000€", label: "économisés", sub: "PAR POSTE / AN" },
-  { value: "24/7", label: "disponibilité", sub: "ACCUEIL VOCAL" },
+  { value: "24/7", label: "disponibilité", sub: "GARANTIE" },
 ]
 
 const facts = [
@@ -232,14 +232,14 @@ export default function VoiceRestaurantAuditPage() {
         </div>
       </nav>
 
-      <section className="relative overflow-hidden px-6 py-28 lg:px-12 lg:py-36">
+      <section className="relative flex min-h-[82vh] flex-col justify-center overflow-hidden px-6 lg:px-12">
         <div className="audit-grid-bg pointer-events-none absolute inset-0 opacity-55" aria-hidden="true" />
-        <div className="pointer-events-none absolute right-0 top-36 h-[280px] w-[280px] opacity-20 md:right-10 md:h-[380px] md:w-[380px] lg:right-16 lg:h-[480px] lg:w-[480px]" aria-hidden="true">
+        <div className="pointer-events-none absolute right-8 top-1/2 h-[280px] w-[280px] -translate-y-1/2 opacity-25 md:right-16 md:h-[380px] md:w-[380px] lg:right-24 lg:h-[520px] lg:w-[520px]" aria-hidden="true">
           <AnimatedSphere />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
-          <Reveal className="mb-10 flex flex-wrap items-center gap-5" delay={40}>
+        <div className="relative z-10 mx-auto w-full max-w-[1400px] py-28 lg:py-36">
+          <Reveal className="mb-8 flex flex-wrap items-center gap-5" delay={40}>
             <span className="font-display text-3xl tracking-tight sm:text-4xl">Decroche Agency</span>
             <span className="font-display text-3xl text-muted-foreground sm:text-4xl">×</span>
             <img
@@ -252,7 +252,7 @@ export default function VoiceRestaurantAuditPage() {
             <span className="font-display text-3xl tracking-tight sm:text-4xl">Pink Koï</span>
           </Reveal>
 
-          <Reveal delay={80}>
+          <Reveal delay={90}>
             <span className="mb-8 inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
               <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
               Audit opérationnel · accueil vocal
@@ -260,61 +260,86 @@ export default function VoiceRestaurantAuditPage() {
           </Reveal>
 
           <Reveal delay={150}>
-            <h1 className="max-w-6xl text-balance font-display text-[clamp(2.7rem,7vw,6.8rem)] leading-[0.92] tracking-tight">
-              Pink Koï garde la demande. L’accueil vocal récupère les appels.
+            <h1 className="max-w-5xl text-balance font-display text-[clamp(2.4rem,8.5vw,7rem)] leading-[0.92] tracking-tight">
+              <span className="block">Pink Koï garde la demande.</span>
+              <span className="block text-muted-foreground">L’accueil vocal récupère les appels.</span>
             </h1>
           </Reveal>
 
-          <div className="mt-14 grid items-end gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:gap-24">
+          <div className="mt-12 grid items-end gap-12 lg:grid-cols-2 lg:gap-24">
             <Reveal delay={250}>
               <p className="max-w-xl text-pretty text-xl leading-relaxed text-muted-foreground lg:text-2xl">
-                Les bons KPI sont ceux de la décision : appels manqués, CA potentiel, coût d’un poste, disponibilité et vitesse de réponse. L’audit les applique au téléphone Pink Koï, sans promettre de CA garanti.
+                Le site donne déjà les bonnes informations. La valeur se joue maintenant au téléphone : appels perdus, CA potentiel, coût d’un poste, disponibilité et réponse rapide.
               </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Button asChild size="lg" className="group">
-                  <a href="#priorites">
-                    Voir les priorités
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </a>
-                </Button>
-                <Button asChild variant="outline" size="lg">
-                  <a href="#appel-test">Lire l’appel test</a>
-                </Button>
-              </div>
             </Reveal>
 
-            <Reveal delay={320} direction="right" aria-label="KPI commerciaux Decroche appliqués à Pink Koï">
-              <div className="grid gap-px bg-foreground/10 sm:grid-cols-2">
-                {agencyStats.map((stat) => (
-                  <div key={stat.label} className="bg-card/88 p-7 backdrop-blur">
-                    <div className="whitespace-nowrap font-display text-4xl leading-none text-foreground lg:text-5xl">{stat.value}</div>
-                    <div className="mt-4 text-base leading-tight text-muted-foreground">
-                      {stat.label}
-                      <span className="mt-2 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">
-                        {stat.sub}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <Reveal className="flex flex-col items-start gap-4 sm:flex-row" delay={320} direction="right">
+              <Button asChild size="lg" className="group">
+                <a href="#kpi-impact">
+                  Voir les KPI utiles
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <a href="#appel-test">Lire l’appel test</a>
+              </Button>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-foreground/10 px-6 py-8 lg:px-12" aria-label="Indicateurs commerciaux Decroche appliqués à Pink Koï">
+        <div className="mx-auto grid max-w-[1400px] gap-px bg-foreground/10 sm:grid-cols-2 lg:grid-cols-4">
+          {agencyStats.map((stat) => (
+            <div key={stat.label} className="min-h-28 bg-background p-6 lg:p-8">
+              <span className="shrink-0 font-display text-4xl text-foreground lg:text-5xl">{stat.value}</span>
+              <span className="mt-3 block text-sm leading-tight text-muted-foreground">
+                {stat.label}
+                <span className="mt-1 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">
+                  {stat.sub}
+                </span>
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative border-b border-foreground/10 px-6 py-24 lg:px-12 lg:py-32" id="kpi-impact">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="mb-16 flex flex-col gap-8 lg:mb-24 lg:flex-row lg:items-end lg:justify-between">
+            <Reveal>
+              <span className="mb-6 inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
+                <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
+                Le problème
+              </span>
+              <h2 className="text-balance font-display text-4xl tracking-tight lg:text-6xl">
+                Chaque appel manqué
+                <br />
+                <span className="text-muted-foreground">est une demande perdue.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={120} direction="right">
+              <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+                Ce bloc reprend les KPI forts du site agence et les met au service de Pink Koï. Ce sont des ordres de grandeur à valider, pas une promesse de chiffre d’affaires.
+              </p>
             </Reveal>
           </div>
 
-          <div className="mt-20 grid gap-px bg-foreground/10 md:grid-cols-4" aria-label="KPI Pink Koï">
+          <div className="grid grid-cols-1 gap-px bg-foreground/10 md:grid-cols-2" aria-label="KPI Pink Koï">
             {topKpis.map((metric, index) => {
               const Icon = metric.icon
               return (
-                <Reveal key={metric.label} delay={index * 100} className="h-full">
-                  <div className="h-full bg-background p-8 lg:p-10">
+                <Reveal key={metric.label} delay={index * 110} className="h-full">
+                  <div className="h-full bg-background p-8 lg:p-12">
                     <Icon className="mb-8 size-6 text-primary" aria-hidden="true" />
                     <AnimatedNumber
                       end={metric.end}
                       prefix={metric.prefix}
                       suffix={metric.suffix}
-                      className="block font-display text-6xl leading-none tracking-tight text-primary lg:text-7xl"
+                      className="block font-display text-6xl leading-none tracking-tight text-primary lg:text-8xl"
                     />
                     <div className="mt-5 text-lg text-muted-foreground">{metric.label}</div>
-                    <p className="mt-5 text-base leading-7 text-muted-foreground">{metric.detail}</p>
+                    <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">{metric.detail}</p>
                   </div>
                 </Reveal>
               )

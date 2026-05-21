@@ -57,7 +57,7 @@ export function Reveal({ children, className = "", delay = 0, direction = "up", 
   return (
     <div
       ref={ref}
-      className={`${className} transition-[opacity,transform] duration-700 ease-out ${
+      className={`${className} transition-transform duration-700 ease-out ${
         isVisible ? "translate-x-0 translate-y-0 opacity-100" : `${hiddenTransform(direction)} opacity-100`
       }`}
       style={{ transitionDelay: `${delay}ms`, ...style }}
