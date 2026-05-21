@@ -14,9 +14,10 @@ import {
 } from "lucide-react"
 
 import { AnimatedSphere } from "@/components/landing/animated-sphere"
+import { CalSection } from "@/components/landing/cal-section"
 import { Button } from "@/components/primitives/button"
 import { pinkKoiAudit, pinkKoiPublicSnapshot, runPinkKoiQa } from "@/lib/pink-koi-test"
-import { safeExternalRel, site } from "@/lib/site"
+import { safeExternalRel } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Decroche Agency × Pink Koï — Audit opérationnel",
@@ -522,46 +523,7 @@ export default function VoiceRestaurantAuditPage() {
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-12" id="rdv">
-        <div className="mx-auto max-w-6xl overflow-hidden border border-foreground/10 bg-foreground text-background shadow-[0_50px_140px_rgba(19,19,14,0.22)]">
-          <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
-            <div className="p-8 sm:p-10">
-              <div className="mb-8 inline-flex size-14 items-center justify-center rounded-full bg-background text-foreground">
-                <PhoneCall className="size-6" aria-hidden="true" />
-              </div>
-              <h2 className="font-display text-5xl leading-tight tracking-tight sm:text-6xl">Planifier le diagnostic Pink Koï.</h2>
-              <p className="mt-6 text-lg leading-8 text-background/70">
-                30 minutes pour valider les appels à traiter, les limites, les sources et les mesures de valeur.
-              </p>
-              <Button asChild size="lg" className="mt-8 bg-background text-foreground hover:bg-background/90">
-                <Link href={site.calUrl} rel={safeExternalRel} target="_blank">
-                  Ouvrir Cal.com
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </Link>
-              </Button>
-              <p className="mt-6 text-sm leading-6 text-background/52">
-                Exemple basé sur des informations publiques. Aucune promesse de chiffre d’affaires. Mise en service réelle uniquement après validation.
-              </p>
-            </div>
-            <div className="border-t border-background/10 bg-background/5 p-8 lg:border-l lg:border-t-0 sm:p-10">
-              <p className="mb-8 font-mono text-xs uppercase tracking-[0.26em] text-background/55">À valider pendant le diagnostic</p>
-              <div className="grid gap-px bg-background/15">
-                {[
-                  ["Appels à traiter", "horaires, prix, enfants, groupes, anniversaires"],
-                  ["Réponses validées", "ce que la voix peut dire sans risque"],
-                  ["Transferts humains", "allergènes, litiges, paiement, disponibilité"],
-                  ["Mesure de valeur", "demandes captées, temps gagné, reprises propres"],
-                ].map(([title, text]) => (
-                  <div key={title} className="bg-foreground p-5">
-                    <h3 className="text-xl font-semibold">{title}</h3>
-                    <p className="mt-2 text-base leading-7 text-background/68">{text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CalSection />
     </main>
   )
 }
