@@ -9,7 +9,6 @@ import {
   PhoneCall,
   ShieldCheck,
   Sparkles,
-  Users,
 } from "lucide-react"
 
 import { AnimatedSphere } from "@/components/landing/animated-sphere"
@@ -17,81 +16,137 @@ import { Button } from "@/components/primitives/button"
 import { safeExternalRel, site } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Decroche Agency × Pink Koï — Assistant vocal",
+  title: "Decroche Agency × Pink Koï — Audit assistant vocal",
   description:
-    "Assistant vocal téléphonique Pink Koï : combien peut rapporter chaque personne récupérée au téléphone, avec confirmation finale par l’équipe.",
+    "Audit commercial Pink Koï pour un assistant vocal téléphonique : coût d’un standard, appels hors service, temps équipe, demandes qualifiées et décision humaine finale.",
   robots: {
     index: false,
     follow: false,
   },
 }
 
-const impactKpis = [
+const pinkKoiPhone = "01 42 33 67 93"
+const pinkKoiBookingUrl = "https://bookings.zenchef.com/results?rid=372306&pid=1001"
+
+const heroKpis = [
   {
-    value: "45 €",
-    label: "par personne à table",
-    note: "Mot-clé : 1 personne = panier moyen.",
-    icon: Users,
-  },
-  {
-    value: "90 €",
-    label: "pour 2 personnes",
-    note: "Mot-clé : table de 2 sauvée.",
+    value: "≈ 35 k€ / an",
+    label: "coût d’un standard dédié",
+    note: "À comparer au coût réel d’une personne mobilisée sur les appels.",
     icon: Euro,
   },
   {
-    value: "180 €",
-    label: "pour 4 personnes",
-    note: "Mot-clé : table de 4 récupérée.",
-    icon: Euro,
+    value: "17 h / jour",
+    label: "hors service à couvrir",
+    note: "Quand l’équipe ne sert pas, les questions prix, horaires et réservation peuvent encore arriver.",
+    icon: Headphones,
   },
   {
-    value: "900 € / mois",
-    label: "si 20 personnes reviennent",
-    note: "Mot-clé : appels récupérés.",
+    value: "7 h / jour",
+    label: "service à protéger",
+    note: "Pendant midi et soir, les appels répétitifs coupent la salle.",
+    icon: ShieldCheck,
+  },
+  {
+    value: "7–10 jours",
+    label: "démo appelable",
+    note: "3 à 5 scénarios Pink Koï, testés avant tout branchement réel.",
     icon: PhoneCall,
   },
 ]
 
-const businessGains = [
+const valueMeasures = [
+  "Demandes captées",
+  "Temps équipe gagné",
+  "Réservations préparées",
+  "Reprises humaines claires",
+]
+
+const pinkKoiFacts = [
+  { label: "Horaires", value: "12h–15h · 19h–23h" },
+  { label: "Prix midi", value: "25 € adulte · 14 € enfant" },
+  { label: "Prix soir", value: "42 € adulte · 19 € enfant" },
+  { label: "Réservation", value: "Zenchef déjà en place", href: pinkKoiBookingUrl },
+  { label: "Téléphone", value: pinkKoiPhone },
+  { label: "Expérience", value: "buffet premium · 100+ spécialités" },
+] as const
+
+const leakPoints = [
   {
-    title: "Appel raté = client perdu",
-    text: "Le client appelle. Personne ne décroche. Il peut réserver ailleurs.",
+    title: "Hors service",
+    loss: "Le client appelle après 15h, avant 19h ou tard le soir.",
+    fix: "La voix donne les infos utiles et prépare une demande propre.",
   },
   {
-    title: "Appel décroché = table sauvée",
-    text: "La voix répond, prend la demande et transmet à l’équipe.",
+    title: "Pendant le rush",
+    loss: "La salle répond à des questions simples au lieu de servir.",
+    fix: "La voix absorbe horaires, prix, enfants, adresse, Zenchef.",
   },
   {
-    title: "Personne récupérée = CA potentiel",
-    text: "Calcul simple : personnes récupérées × panier moyen.",
+    title: "Groupes & anniversaires",
+    loss: "Les demandes à forte valeur arrivent sans les bons détails.",
+    fix: "La voix collecte date, heure, nombre, occasion et téléphone.",
+  },
+  {
+    title: "Cas sensibles",
+    loss: "Allergènes, litiges, paiement ou promesse de place peuvent créer du risque.",
+    fix: "La voix s’arrête et transmet. Pink Koï confirme.",
   },
 ]
 
 const callLines = [
   {
     speaker: "Client",
-    text: "Bonsoir, vous êtes ouverts ce soir ? On serait 6 adultes et 2 enfants.",
+    text: "Bonsoir, vous êtes ouverts ce soir ? C’est combien pour 2 adultes et un enfant de 8 ans ? On aimerait venir vers 20h30.",
   },
   {
     speaker: "Accueil Pink Koï",
-    text: "Bonsoir, Pink Koï. Nous sommes ouverts ce soir de 19h à 23h. Pour préparer votre venue, les enfants ont-ils moins de 10 ans ?",
+    text: "Bonsoir, Pink Koï. Oui, le service du soir est de 19h à 23h. Le soir, la formule est à 42 € par adulte et 19 € par enfant de moins de 10 ans.",
+  },
+  {
+    speaker: "Accueil Pink Koï",
+    text: "Pour 20h30, je ne confirme pas la table directement. Je peux vous envoyer vers la réservation Zenchef ou préparer la demande pour l’équipe.",
   },
   {
     speaker: "Client",
-    text: "Oui, et c’est pour un anniversaire vers 20h30.",
+    text: "Préparez la demande, s’il vous plaît.",
   },
   {
     speaker: "Accueil Pink Koï",
-    text: "Parfait, je note : 6 adultes, 2 enfants de moins de 10 ans, anniversaire, arrivée souhaitée vers 20h30. Je fais passer la demande à l’équipe pour confirmer la disponibilité.",
+    text: "Très bien. Je note : ce soir, 20h30, 2 adultes, 1 enfant de 8 ans. Il me manque seulement un prénom et un numéro de rappel. L’équipe Pink Koï garde la confirmation finale.",
   },
 ]
 
-const installedPieces = [
-  "Une voix d’accueil qui parle comme Pink Koï",
-  "Un numéro de test pour appeler le prototype",
-  "Les scénarios répétitifs : horaires, tarifs, groupes, enfants",
-  "Un résumé clair envoyé à l’équipe après chaque demande utile",
+const pilotSteps = [
+  {
+    step: "01",
+    title: "Cadrer les appels",
+    text: "Prix, horaires, enfants, Zenchef, groupes, anniversaires, allergènes.",
+  },
+  {
+    step: "02",
+    title: "Tester 3 à 5 scénarios",
+    text: "Appels réalistes, limites claires, réponses courtes, ton Pink Koï.",
+  },
+  {
+    step: "03",
+    title: "Mesurer l’utilité",
+    text: "Demandes captées, temps gagné, demandes qualifiées, reprises humaines.",
+  },
+  {
+    step: "04",
+    title: "Décider sans risque",
+    text: "Continuer, ajuster ou arrêter. Aucun branchement réel sans validation.",
+  },
+]
+
+const installPieces = [
+  "Une voix d’accueil Pink Koï, pas une interface écrite.",
+  "Un numéro de test appelable, séparé du téléphone officiel.",
+  "Une base de réponses validée : horaires, tarifs, enfants, Zenchef, adresse.",
+  "Un résumé équipe après chaque demande utile.",
+  "Un transfert humain pour réservations fermes, allergènes, litiges, paiement et gestes commerciaux.",
+  "Un mini-rapport de décision après la démo.",
 ]
 
 function MiniLabel({ children }: { children: ReactNode }) {
@@ -123,7 +178,7 @@ export default function VoiceRestaurantAuditPage() {
             Decroche Agency
           </Link>
           <Button asChild variant="outline" size="sm">
-            <Link href="#rdv">Réserver 30 min</Link>
+            <Link href="#rdv">Cadrer 30 min</Link>
           </Button>
         </div>
       </nav>
@@ -131,109 +186,77 @@ export default function VoiceRestaurantAuditPage() {
       <section className="relative px-5 pb-14 pt-10 sm:px-8 lg:pb-20 lg:pt-16">
         <div className="audit-grid-bg pointer-events-none absolute inset-0 opacity-55" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-wrap items-center gap-4 rounded-[2rem] border border-foreground/10 bg-card/70 p-4 backdrop-blur">
-            <div className="flex items-center gap-3 rounded-full bg-foreground px-4 py-3 text-background">
-              <span className="font-display text-xl leading-none">Decroche</span>
-              <span className="text-background/45">×</span>
+          <div className="mb-10 flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+              <span className="font-display">Decroche Agency</span>
+              <span className="text-muted-foreground">×</span>
               <img
                 src="/logos/pink-koi-logo.png"
                 alt="Logo Pink Koï"
-                className="size-9 rounded-full object-cover"
+                className="size-12 rounded-full object-cover ring-1 ring-foreground/10"
                 loading="eager"
                 decoding="async"
               />
-              <span className="font-display text-xl leading-none">Pink Koï</span>
+              <span className="font-display">Pink Koï</span>
             </div>
-            <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 text-sm leading-6">
-              <span className="rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary">Assistant vocal téléphonique</span>
-              <span className="font-semibold text-foreground">45 € / personne à table</span>
-              <span className="text-muted-foreground">•</span>
-              <span className="text-muted-foreground">Appel décroché = table sauvée.</span>
+            <div className="flex flex-wrap items-center gap-2 text-sm leading-6">
+              <span className="rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary">Audit téléphone</span>
+              <span className="rounded-full border border-foreground/10 bg-card/70 px-3 py-1 text-muted-foreground">pas un audit de site</span>
+              <span className="rounded-full border border-foreground/10 bg-card/70 px-3 py-1 text-muted-foreground">pas une messagerie</span>
             </div>
           </div>
 
-          <div className="grid gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
             <div className="audit-reveal">
-              <h1 className="max-w-4xl font-display text-5xl leading-[0.95] tracking-tight text-balance sm:text-6xl lg:text-7xl">
-                Pink Koï : chaque appel décroché peut sauver une table.
+              <h1 className="max-w-5xl font-display text-5xl leading-[0.92] tracking-tight text-balance sm:text-6xl lg:text-7xl">
+                Les appels simples coûtent trop cher quand ils tombent au mauvais moment.
               </h1>
-              <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-                Pink Koï a déjà une image premium. Decroche ajoute l’accueil vocal : il répond au téléphone,
-                récupère les personnes, prépare la demande et laisse l’équipe confirmer.
+              <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">
+                Pink Koï a déjà une vitrine premium, Zenchef et une vraie demande. L’enjeu n’est pas de refaire le site : c’est de capter les appels, protéger le service et préparer les demandes que l’équipe doit confirmer.
               </p>
-              <div className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-foreground/10 bg-card/80 p-4 shadow-sm">
-                  <div className="font-display text-3xl leading-none">45 €</div>
-                  <div className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">par personne</div>
-                </div>
-                <div className="rounded-2xl border border-foreground/10 bg-card/80 p-4 shadow-sm">
-                  <div className="text-sm font-semibold">Appel vocal</div>
-                  <div className="mt-2 text-sm text-muted-foreground">pas une messagerie</div>
-                </div>
-                <div className="rounded-2xl border border-foreground/10 bg-card/80 p-4 shadow-sm">
-                  <div className="text-sm font-semibold">Pas un audit de site</div>
-                  <div className="mt-2 text-sm text-muted-foreground">on ajoute le téléphone</div>
-                </div>
-              </div>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" className="group">
-                  <a href="#appel">
-                    Voir la démo téléphonique
+                  <a href="#kpi">
+                    Voir les KPI utiles
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </a>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <a href="#rdv">Réserver le call</a>
+                  <a href="#appel">Voir l’appel test</a>
                 </Button>
               </div>
             </div>
 
             <div className="audit-reveal relative" style={{ animationDelay: "120ms" }}>
-              <div className="audit-float relative mx-auto aspect-square max-w-[520px] overflow-hidden rounded-[3rem] border border-foreground/10 bg-foreground text-background shadow-[0_40px_120px_rgba(19,19,14,0.24)]">
-                <div className="absolute inset-0 opacity-35">
+              <div className="relative overflow-hidden rounded-[3rem] border border-foreground/10 bg-card/80 p-6 shadow-[0_40px_120px_rgba(19,19,14,0.12)] backdrop-blur">
+                <div className="pointer-events-none absolute -right-20 -top-24 size-72 opacity-20" aria-hidden="true">
                   <AnimatedSphere />
                 </div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent,rgba(0,0,0,0.74))]" />
-                <div className="relative flex h-full flex-col justify-between p-8 sm:p-10">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 rounded-full border border-background/20 px-4 py-2 text-xs uppercase tracking-[0.26em] text-background/70">
-                      <PhoneCall className="size-4" aria-hidden="true" />
-                      Appel entrant
-                    </div>
-                    <div className="flex size-12 items-center justify-center overflow-hidden rounded-full bg-background">
-                      <img src="/logos/pink-koi-logo.png" alt="" className="size-full object-cover" loading="eager" decoding="async" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-background/55">Ce que le client entend :</div>
-                    <p className="mt-4 font-display text-4xl leading-none text-balance sm:text-5xl">
-                      Bonsoir, Pink Koï. Nous sommes ouverts ce soir de 19h à 23h.
-                    </p>
-                  </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {["Décroche", "Répond", "Qualifie", "Transmet"].map((item) => (
-                      <div key={item} className="rounded-2xl border border-background/15 bg-background/10 p-3 text-sm text-background/80">
+                <div className="relative">
+                  <div className="mb-8 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Opportunité détectée</div>
+                  <div className="font-display text-5xl leading-none tracking-tight text-primary">35 k€</div>
+                  <p className="mt-4 text-xl font-semibold leading-tight text-balance">à comparer au coût annuel d’un accueil téléphonique dédié.</p>
+                  <div className="mt-8 grid gap-3">
+                    {[
+                      "17h/jour où l’information peut encore être demandée.",
+                      "7h/jour où la salle ne doit pas être coupée.",
+                      "4 mesures Decroche : demandes, temps, qualification, reprise humaine.",
+                    ].map((item) => (
+                      <div key={item} className="rounded-2xl border border-foreground/10 bg-background/70 p-4 text-sm font-medium leading-6">
                         {item}
                       </div>
                     ))}
                   </div>
+                  <p className="mt-6 text-sm leading-6 text-muted-foreground">
+                    Ordres de grandeur à valider. Aucun revenu garanti. L’objectif : vérifier si une démo vocale mérite d’être installée.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-12 rounded-[2rem] border border-foreground/10 bg-foreground p-6 text-background shadow-[0_24px_80px_rgba(19,19,14,0.14)]">
-            <div className="text-xs font-semibold uppercase tracking-[0.24em] text-background/55">KPI argent</div>
-            <p className="mt-3 max-w-3xl text-2xl font-semibold leading-tight text-balance sm:text-3xl">
-              45 € par personne à table. 90 € pour 2. 180 € pour 4. 900 € / mois si 20 personnes reviennent.
-            </p>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-background/65">
-              Exemple basé sur 45 € par personne à table. À ajuster avec le panier moyen réel de Pink Koï. Ce n’est pas une garantie.
-            </p>
-          </div>
-
-          <div className="mt-4 grid gap-3 md:grid-cols-4" aria-label="KPI argent Pink Koï">
-            {impactKpis.map((metric, index) => {
+          <div id="kpi" className="mt-12 grid gap-3 md:grid-cols-4" aria-label="KPI de valeur Pink Koï">
+            {heroKpis.map((metric, index) => {
               const Icon = metric.icon
               return (
                 <div
@@ -251,18 +274,63 @@ export default function VoiceRestaurantAuditPage() {
               )
             })}
           </div>
+
+          <div className="mt-4 rounded-[2rem] border border-foreground/10 bg-foreground p-6 text-background shadow-[0_24px_80px_rgba(19,19,14,0.14)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.24em] text-background/55">La valeur mesurée</div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {valueMeasures.map((measure) => (
+                <div key={measure} className="rounded-2xl border border-background/15 bg-background/10 p-4 text-base font-semibold">
+                  {measure}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="px-5 py-12 sm:px-8">
         <div className="mx-auto max-w-7xl">
-          <MiniLabel>Où part l’argent</MiniLabel>
-          <div className="grid gap-5 lg:grid-cols-3">
-            {businessGains.map((gain) => (
-              <Card key={gain.title}>
+          <MiniLabel>Base Pink Koï utilisée</MiniLabel>
+          <div className="grid gap-6 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
+            <div>
+              <h2 className="font-display text-4xl leading-tight sm:text-6xl">Les réponses existent déjà. Il faut les rendre disponibles au téléphone.</h2>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+                L’audit ne critique pas Pink Koï. Il transforme les informations publiques en appels traitables : prix, horaires, enfants, réservation, adresse et téléphone.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {pinkKoiFacts.map((fact) => (
+                <div key={fact.label} className="rounded-2xl border border-foreground/10 bg-card/80 p-4 shadow-sm">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{fact.label}</div>
+                  {"href" in fact ? (
+                    <a
+                      href={fact.href}
+                      rel={safeExternalRel}
+                      target="_blank"
+                      className="mt-2 inline-flex text-base font-semibold text-foreground underline-offset-4 hover:underline"
+                    >
+                      {fact.value}
+                    </a>
+                  ) : (
+                    <div className="mt-2 text-base font-semibold leading-6 text-foreground">{fact.value}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-12 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <MiniLabel>Où l’argent et le temps se perdent</MiniLabel>
+          <div className="grid gap-4 lg:grid-cols-4">
+            {leakPoints.map((point) => (
+              <Card key={point.title} className="h-full">
                 <CheckCircle2 className="mb-6 size-7 text-primary" aria-hidden="true" />
-                <h2 className="text-2xl font-semibold tracking-tight text-balance">{gain.title}</h2>
-                <p className="mt-4 text-base leading-7 text-muted-foreground">{gain.text}</p>
+                <h2 className="text-2xl font-semibold tracking-tight text-balance">{point.title}</h2>
+                <p className="mt-4 text-base leading-7 text-muted-foreground">{point.loss}</p>
+                <div className="mt-6 rounded-2xl bg-secondary/70 p-4 text-sm font-semibold leading-6 text-foreground">{point.fix}</div>
               </Card>
             ))}
           </div>
@@ -272,17 +340,17 @@ export default function VoiceRestaurantAuditPage() {
       <section className="px-5 py-12 sm:px-8" id="appel">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
-            <MiniLabel>Appel vocal simulé</MiniLabel>
-            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Le client pose une vraie question. La voix répond tout de suite.</h2>
+            <MiniLabel>Appel test</MiniLabel>
+            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Le client pose trois questions. La voix répond d’abord.</h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              La voix parle au nom de Pink Koï. Elle donne l’information utile, récupère les détails, puis l’équipe confirme.
+              Pas de phrase creuse. Pas de confirmation risquée. La voix donne les faits, puis collecte juste ce qui aide l’équipe.
             </p>
           </div>
           <Card className="bg-foreground text-background">
             <div className="mb-6 flex flex-wrap items-center justify-between gap-4 text-background/70">
               <div className="flex items-center gap-3">
                 <Headphones className="size-5" aria-hidden="true" />
-                Appel entrant — 42 secondes
+                Simulation vocale — exemple court
               </div>
               <div className="rounded-full border border-background/15 px-3 py-1 text-xs uppercase tracking-[0.22em]">
                 Voix Pink Koï
@@ -322,24 +390,39 @@ export default function VoiceRestaurantAuditPage() {
             </div>
             <div className="mt-6 flex gap-3 rounded-2xl border border-background/15 bg-background/10 p-4 text-sm leading-6 text-background/72">
               <ShieldCheck className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-              La voix prépare la demande. La confirmation finale reste à l’équipe Pink Koï.
+              La voix prépare. Pink Koï confirme. Allergènes, litiges, paiement et réservations fermes restent humains.
             </div>
           </Card>
         </div>
       </section>
 
       <section className="px-5 py-12 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <MiniLabel>Architecture du pilote</MiniLabel>
+          <div className="grid gap-5 lg:grid-cols-4">
+            {pilotSteps.map((item) => (
+              <Card key={item.step} className="h-full">
+                <div className="mb-6 font-mono text-sm text-primary">{item.step}</div>
+                <h2 className="text-2xl font-semibold tracking-tight text-balance">{item.title}</h2>
+                <p className="mt-4 text-base leading-7 text-muted-foreground">{item.text}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-12 sm:px-8">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <MiniLabel>Ce qu’on installe</MiniLabel>
-            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Un assistant vocal testable, pas un audit de site.</h2>
+            <MiniLabel>Ce que Pink Koï reçoit</MiniLabel>
+            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Une preuve appelable, pas une promesse abstraite.</h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              On ne critique pas la vitrine Pink Koï. On ajoute ce qui manque au téléphone : décrocher, répondre, filtrer, transmettre.
+              Le livrable doit permettre de décider vite : utile, pas utile, ou à ajuster. Pas de mise en production sans validation.
             </p>
           </div>
           <Card>
             <div className="grid gap-3 sm:grid-cols-2">
-              {installedPieces.map((item) => (
+              {installPieces.map((item) => (
                 <div key={item} className="rounded-2xl border border-foreground/10 bg-secondary/60 p-4 text-sm leading-6">
                   <CheckCircle2 className="mb-3 size-5 text-primary" aria-hidden="true" />
                   {item}
@@ -357,13 +440,13 @@ export default function VoiceRestaurantAuditPage() {
               <div className="mb-6 inline-flex size-14 items-center justify-center rounded-full bg-background text-foreground">
                 <PhoneCall className="size-6" aria-hidden="true" />
               </div>
-              <h2 className="font-display text-4xl leading-tight sm:text-5xl">Réserver le call Decroche × Pink Koï.</h2>
+              <h2 className="font-display text-4xl leading-tight sm:text-5xl">Cadrer la démo vocale Pink Koï.</h2>
               <p className="mt-5 text-base leading-7 text-background/70">
-                En 30 minutes, on valide les appels à traiter, les gains réalistes et la première démo appelable.
+                30 minutes pour valider les scénarios, les limites, les sources et les KPI à suivre. Ensuite : démo appelable en 7 à 10 jours si le cas mérite d’être testé.
               </p>
               <Button asChild size="lg" className="mt-7 bg-background text-foreground hover:bg-background/90">
                 <Link href={site.calUrl} rel={safeExternalRel} target="_blank">
-                  Ouvrir sur Cal.com
+                  Planifier le cadrage
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
