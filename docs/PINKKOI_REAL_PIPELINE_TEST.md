@@ -4,11 +4,12 @@ Statut : test interne uniquement. Ne pas envoyer au restaurant. Ne pas contacter
 
 ## Pages renforcées
 
+- `/audit/pink-koi-assistant-vocal` : audit client-ready assistant vocal IA téléphonique.
 - `/audit/pink-koi-test-interne` : audit premium orienté closing.
 - `/audit/pink-koi-test-interne/print` : version print.
-- `/lab/pink-koi` : cockpit complet avec DA, décisions UX, stack, RGPD, CRM mock, assistant, QA et après closing.
+- `/lab/pink-koi` : cockpit complet avec DA, décisions UX, stack, RGPD, CRM mock, assistant vocal, QA et après closing.
 - `/api/audit/pink-koi-test-interne` : payload JSON audit.
-- `/api/pink-koi/qa` : QA agent + stack + garde-fous.
+- `/api/pink-koi/qa` : QA assistant vocal + stack + garde-fous.
 
 ## Ce qui a été renforcé
 
@@ -30,7 +31,7 @@ La page ne se contente plus d’afficher un score. Elle pousse vers une conclusi
 Le site est déjà premium
 → mais certaines demandes restent répétitives
 → on ne refait pas le site
-→ on installe un assistant privé contrôlé
+→ on installe un assistant vocal privé contrôlé
 → l’équipe garde la décision finale
 → prototype 10 jours
 ```
@@ -42,7 +43,7 @@ Le cockpit montre maintenant quoi faire dès que le client dit oui :
 1. Cadrer le flux unique.
 2. Demander les données minimum.
 3. Valider prix, horaires, groupes, allergènes, canal de transfert.
-4. Construire l’assistant privé.
+4. Construire l’assistant vocal privé.
 5. Tester normal/sensible/attaque.
 6. Go/No-Go.
 7. Pilote supervisé.
@@ -54,17 +55,17 @@ V1 volontairement sûre :
 - Next.js App Router.
 - Audit JSON typé.
 - CRM Notion mock ou manuel.
-- Assistant privé non connecté aux actions sensibles.
-- Pas de Zenchef, email, téléphone ou paiement automatisé au départ.
+- Assistant vocal privé sur numéro de test, non connecté aux actions sensibles.
+- Pas de Zenchef, numéro officiel, email ou paiement automatisé au départ.
 
 Après validation seulement :
 
 - Notion API avec clé en `.env`.
-- API LLM après vérification DPA/conditions.
+- Fournisseur voix/LLM après vérification DPA/conditions.
 - Tracking conforme.
 - Connecteurs progressifs avec rollback.
 
-### RGPD / légal / ChatGPT
+### RGPD / légal / voix IA
 
 Garde-fous visibles :
 
@@ -82,8 +83,8 @@ Important : ce n’est pas un avis juridique. Avant production réelle, valider 
 
 Pour closer, ne pas vendre “IA”. Vendre :
 
-> Prototype demandes entrantes restaurant — 10 jours.
+> Prototype appels entrants restaurant — 10 jours.
 
 Promesse prudente :
 
-> On teste un assistant privé qui répond aux questions répétitives et prépare un résumé exploitable par l’équipe, sans toucher aux actions sensibles.
+> On teste un assistant vocal privé qui répond aux appels répétitifs et prépare un résumé exploitable par l’équipe, sans toucher aux actions sensibles.

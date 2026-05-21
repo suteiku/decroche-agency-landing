@@ -25,7 +25,7 @@ const plans = [
     setup: "7 à 10 jours",
     features: [
       "Script métier et limites",
-      "Démo vocale ou assistant web",
+      "Démo vocale appelable",
       "3 à 5 scénarios testés",
       "Grille QA simple",
       "Rapport de décision",
@@ -54,7 +54,7 @@ const plans = [
     price: "299–799 €/mois",
     setup: "Après installation",
     features: [
-      "Revue des conversations",
+      "Revue des appels et conversations",
       "Ajustements scripts",
       "Nouveaux scénarios",
       "Monitoring des limites",

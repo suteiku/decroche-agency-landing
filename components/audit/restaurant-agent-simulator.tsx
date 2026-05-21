@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Bot, CheckCircle2, ClipboardList, Send, ShieldAlert } from "lucide-react"
+import { CheckCircle2, ClipboardList, PhoneCall, ShieldAlert } from "lucide-react"
 
 import { Button } from "@/components/primitives/button"
 import {
@@ -54,7 +54,7 @@ function ResponsePanel({ response }: { response: AgentResponse }) {
         </div>
       </div>
       <details className="mt-5 rounded-2xl border border-foreground/10 bg-foreground p-4 text-background">
-        <summary className="cursor-pointer text-sm font-medium">Voir la sortie JSON agent</summary>
+        <summary className="cursor-pointer text-sm font-medium">Voir la sortie JSON assistant</summary>
         <pre className="mt-4 overflow-x-auto whitespace-pre-wrap text-xs leading-5 text-background/75">
           {JSON.stringify(response, null, 2)}
         </pre>
@@ -73,15 +73,15 @@ export function RestaurantAgentSimulator() {
       <div className="rounded-[2.5rem] border border-foreground/10 bg-white/70 p-6 shadow-sm backdrop-blur sm:p-8">
         <div className="mb-5 flex items-center gap-3">
           <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-            <Bot className="size-6" aria-hidden="true" />
+            <PhoneCall className="size-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">Prototype privé</p>
-            <h2 className="font-display text-3xl leading-none">Assistant Pink Koï simulé</h2>
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">Prototype vocal privé</p>
+            <h2 className="font-display text-3xl leading-none">Assistant vocal Pink Koï simulé</h2>
           </div>
         </div>
         <label htmlFor="agent-message" className="text-sm font-medium">
-          Message client test
+          Phrase entendue pendant l’appel test
         </label>
         <textarea
           id="agent-message"
@@ -102,7 +102,7 @@ export function RestaurantAgentSimulator() {
           ))}
         </div>
         <Button type="button" className="mt-5" onClick={() => setInput(input.trim() || presets[0])}>
-          Simuler la réponse <Send className="size-4" aria-hidden="true" />
+          Simuler l’appel <PhoneCall className="size-4" aria-hidden="true" />
         </Button>
       </div>
 
@@ -113,7 +113,7 @@ export function RestaurantAgentSimulator() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">QA automatique</p>
             <h2 className="mt-2 font-display text-4xl leading-none tracking-tight">
-              {qa.passed}/{qa.total} scénarios passent
+              {qa.passed}/{qa.total} appels test passent
             </h2>
           </div>
           <div className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background">
@@ -165,7 +165,7 @@ export function RestaurantAgentSimulator() {
             <ClipboardList className="size-4 text-primary" aria-hidden="true" />
             Règle de décision
           </div>
-          Le prototype est vendable uniquement si les scénarios sensibles restent bloqués : aucune réservation confirmée, aucune promesse allergène, aucun paiement/remboursement, aucune réponse inventée.
+          Le prototype vocal est vendable uniquement si les appels sensibles restent bloqués : aucune réservation confirmée, aucune promesse allergène, aucun paiement/remboursement, aucune réponse inventée.
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import Link from "next/link"
 import {
   AlertTriangle,
   ArrowRight,
-  Bot,
+  PhoneCall,
   CheckCircle2,
   Database,
   FileText,
@@ -77,10 +77,10 @@ function ClosingBridge() {
         <div className="mb-8 max-w-3xl">
           <SectionLabel>Argument de closing</SectionLabel>
           <h2 className="font-display text-5xl leading-none tracking-tight text-balance sm:text-6xl">
-            On ne vend pas un gadget. On vend la première intervention utile.
+            On ne vend pas un gadget. On vend un assistant vocal utile dès le premier appel.
           </h2>
           <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            La page doit amener le prospect à une conclusion simple : son site donne envie, mais l’équipe perd encore du temps sur les mêmes questions avant réservation.
+            La page doit amener le prospect à une conclusion simple : son site donne envie, mais l’équipe perd encore du temps sur les mêmes appels avant réservation.
           </p>
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
@@ -117,7 +117,7 @@ function OfferCloseCard({ audit }: { audit: AuditPayload }) {
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-background/78">{pinkKoiCloseOffer.promise}</p>
             <p className="mt-5 max-w-2xl rounded-2xl border border-background/15 bg-background/10 p-4 text-sm leading-6 text-background/65">
-              {pinkKoiCloseOffer.priceNote} Aucun résultat financier garanti. Le but est de tester un flux réel, mesurable et supervisé.
+              {pinkKoiCloseOffer.priceNote} Aucun résultat financier garanti. Le but est de tester un flux d’appels réel, mesurable et supervisé.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90">
@@ -159,7 +159,7 @@ function PostCloseAndStack() {
               La vente ne doit pas créer du flou. Elle déclenche un protocole : cadrage, data minimale, validation, prototype, QA, pilote.
             </p>
             <div className="mt-8 rounded-[2rem] border border-primary/20 bg-primary/8 p-5 text-sm leading-6 text-muted-foreground">
-              <span className="font-semibold text-foreground">Point clé :</span> tant que les API ne sont pas connectées, Decroche reste en mode sûr : mock, brouillon, résumé équipe, validation humaine.
+              <span className="font-semibold text-foreground">Point clé :</span> tant que le numéro officiel n’est pas connecté, Decroche reste en mode sûr : numéro de test, brouillon, résumé équipe, validation humaine.
             </div>
           </div>
           <div className="space-y-3">
@@ -193,7 +193,7 @@ function PostCloseAndStack() {
             </div>
           </div>
           <div className="rounded-[2.5rem] border border-foreground/10 bg-white/70 p-6 shadow-sm backdrop-blur sm:p-8">
-            <SectionLabel>RGPD / LLM / légal</SectionLabel>
+            <SectionLabel>RGPD / voix IA / légal</SectionLabel>
             <ul className="space-y-3 text-sm leading-6 text-muted-foreground">
               {pinkKoiComplianceGates.map((item) => (
                 <li key={item} className="flex gap-3 rounded-2xl border border-foreground/10 bg-background/70 p-3">
@@ -214,6 +214,28 @@ function PostCloseAndStack() {
 
 export function RestaurantAuditPage({ audit, printMode = false }: { audit: AuditPayload; printMode?: boolean }) {
   const qa = runPinkKoiQa()
+  const openingKpis = [
+    {
+      value: `${audit.score}/100`,
+      label: "score audit Pink Koï",
+      note: "Vitrine premium, mais appels pré-réservation à cadrer.",
+    },
+    {
+      value: String(pinkKoiPublicSnapshot.sources.length),
+      label: "sources publiques",
+      note: "Menu, tarifs, horaires, réservation et informations pratiques.",
+    },
+    {
+      value: `${qa.passed}/${qa.total}`,
+      label: "tests QA",
+      note: "Prix, horaires, groupes, allergènes, plaintes et sécurité.",
+    },
+    {
+      value: "10j",
+      label: "prototype vocal",
+      note: "Numéro de test privé, aucune réservation réelle confirmée.",
+    },
+  ]
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground noise-overlay">
@@ -234,7 +256,29 @@ export function RestaurantAuditPage({ audit, printMode = false }: { audit: Audit
         </div>
       ) : null}
 
-      <section className="relative px-4 pb-16 pt-16 sm:px-6 lg:px-8 lg:pt-24">
+      <section className="px-4 pt-8 sm:px-6 lg:px-8 lg:pt-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground shadow-sm backdrop-blur">
+            <span className="size-1.5 rounded-full bg-primary" />
+            KPI de départ — Pink Koï
+          </div>
+          <div className="grid gap-3 md:grid-cols-4">
+            {openingKpis.map((metric, index) => (
+              <div
+                key={metric.label}
+                className="audit-reveal rounded-[1.75rem] border border-foreground/10 bg-white/70 p-5 shadow-sm backdrop-blur"
+                style={{ animationDelay: `${index * 60}ms` }}
+              >
+                <div className="font-display text-4xl leading-none tracking-tight">{metric.value}</div>
+                <div className="mt-2 text-sm font-semibold text-foreground">{metric.label}</div>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{metric.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative px-4 pb-16 pt-12 sm:px-6 lg:px-8 lg:pt-16">
         <div className="audit-grid-bg absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="absolute right-[-10rem] top-10 size-[34rem] opacity-20" aria-hidden="true">
           <AnimatedSphere />
@@ -244,15 +288,15 @@ export function RestaurantAuditPage({ audit, printMode = false }: { audit: Audit
           <div className="audit-reveal">
             <SectionLabel>Audit restaurant prêt à closer</SectionLabel>
             <h1 className="max-w-4xl font-display text-6xl leading-[0.88] tracking-[-0.055em] text-balance sm:text-7xl lg:text-8xl">
-              Transformer les questions répétitives en réservations mieux préparées.
+              Transformer les appels répétitifs de Pink Koï en demandes mieux préparées.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-              Cas réel basé sur les pages publiques de <span className="font-medium text-foreground">{audit.company.name}</span>. L’objectif n’est pas de juger le restaurant : c’est de montrer une intervention simple, sûre et vendable.
+              Cas réel basé sur les pages publiques de <span className="font-medium text-foreground">{audit.company.name}</span>. L’objectif n’est pas de juger le restaurant : c’est de montrer un assistant vocal IA simple, sûr et vendable.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg">
                 <Link href={audit.cta.href}>
-                  Voir le cockpit de closing <ArrowRight className="size-4" aria-hidden="true" />
+                  Voir le cockpit de livraison <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
@@ -288,7 +332,7 @@ export function RestaurantAuditPage({ audit, printMode = false }: { audit: Audit
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               <div className="rounded-3xl bg-foreground p-5 text-background">
                 <div className="text-3xl font-semibold">{qa.passed}/{qa.total}</div>
-                <div className="mt-1 text-sm text-background/70">QA agent</div>
+                <div className="mt-1 text-sm text-background/70">QA vocal</div>
               </div>
               <div className="rounded-3xl border border-foreground/10 bg-background p-5">
                 <div className="text-3xl font-semibold">{pinkKoiPublicSnapshot.sources.length}</div>
@@ -296,7 +340,7 @@ export function RestaurantAuditPage({ audit, printMode = false }: { audit: Audit
               </div>
               <div className="rounded-3xl border border-primary/20 bg-primary/8 p-5">
                 <div className="text-3xl font-semibold">10j</div>
-                <div className="mt-1 text-sm text-muted-foreground">prototype</div>
+                <div className="mt-1 text-sm text-muted-foreground">prototype vocal</div>
               </div>
             </div>
           </div>
@@ -334,7 +378,7 @@ export function RestaurantAuditPage({ audit, printMode = false }: { audit: Audit
 
       <section className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <SectionLabel>Fuites visibles à transformer en offre</SectionLabel>
+          <SectionLabel>Appels visibles à transformer en offre</SectionLabel>
           <div className="grid gap-5 lg:grid-cols-3">
             {audit.visibleLeaks.map((leak, index) => (
               <article
@@ -393,7 +437,7 @@ export function RestaurantAuditPage({ audit, printMode = false }: { audit: Audit
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             <GuardrailCard icon={Database} title="Data propre" text="Robots.txt, sitemap et pages publiques. Les inconnues sont listées au lieu d’être inventées." />
             <GuardrailCard icon={FileText} title="Audit JSON" text="La page est alimentée par un payload structuré, prêt à être généré automatiquement pour d’autres secteurs." />
-            <GuardrailCard icon={Bot} title="Agent testé" text="Le simulateur répond aux cas prix, horaires, groupes, allergènes, plaintes et prompt injection." />
+            <GuardrailCard icon={PhoneCall} title="Assistant vocal testé" text="Le simulateur répond aux cas tarifs, horaires, groupes, allergènes, plaintes et consignes dangereuses." />
             <GuardrailCard icon={ShieldCheck} title="Handoff humain" text="Aucune réservation, paiement, allergie ou plainte n’est traité sans validation humaine." />
           </div>
         </div>
@@ -434,7 +478,7 @@ export function RestaurantAuditPage({ audit, printMode = false }: { audit: Audit
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.28em] text-background/55">Prochaine étape de closing</p>
               <h2 className="mt-4 max-w-3xl font-display text-5xl leading-none tracking-tight">
-                Passer de l’audit au diagnostic : confirmer les vraies questions reçues par l’équipe.
+                Passer de l’audit au diagnostic : confirmer les vrais appels reçus par l’équipe.
               </h2>
               <p className="mt-5 max-w-3xl text-sm leading-6 text-background/65">{audit.disclaimer}</p>
             </div>

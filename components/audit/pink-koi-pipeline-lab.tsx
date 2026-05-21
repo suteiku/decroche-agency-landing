@@ -74,12 +74,12 @@ export function PinkKoiPipelineLab() {
                   Un audit qui doit conduire au closing.
                 </h1>
                 <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-                  Le cockpit vérifie tout le parcours : DA premium, audit, CRM, stack, RGPD, assistant prototype, QA et plan d’intervention après signature.
+                  Le cockpit vérifie tout le parcours : DA premium, audit, CRM, stack, RGPD, assistant vocal prototype, QA et plan d’intervention après signature.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button asChild size="lg">
                     <a href="#simulateur">
-                      Tester l’assistant <ArrowRight className="size-4" aria-hidden="true" />
+                      Tester l’assistant vocal <ArrowRight className="size-4" aria-hidden="true" />
                     </a>
                   </Button>
                   <Button asChild size="lg" variant="outline">
@@ -92,9 +92,9 @@ export function PinkKoiPipelineLab() {
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
                   { label: "Score audit", value: `${pinkKoiAudit.score}/100` },
-                  { label: "QA agent", value: `${qa.passed}/${qa.total}` },
+                  { label: "QA vocal", value: `${qa.passed}/${qa.total}` },
                   { label: "Sources publiques", value: String(pinkKoiPublicSnapshot.sources.length) },
-                  { label: "Mode", value: "safe V1" },
+                  { label: "Mode", value: "appel test" },
                 ].map((metric, index) => (
                   <div
                     key={metric.label}
@@ -147,7 +147,7 @@ export function PinkKoiPipelineLab() {
         <div className="mx-auto max-w-7xl">
           <SectionIntro
             kicker="Étapes testées"
-            title="Le pipeline complet, du site réel au prototype"
+            title="Le pipeline complet, du site réel au prototype vocal"
             text="Chaque étape produit un livrable exploitable. Les données incertaines ne sont pas inventées : elles deviennent des questions à poser après closing."
           />
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -226,8 +226,8 @@ export function PinkKoiPipelineLab() {
         <div className="mx-auto max-w-7xl">
           <SectionIntro
             kicker="Stack & conformité"
-            title="Prêt sans API d’abord, connectable proprement ensuite"
-            text="Le système est volontairement safe en V1 : il prouve la valeur sans demander de secrets ni brancher des actions sensibles."
+            title="Prêt sur numéro de test d’abord, connectable proprement ensuite"
+            text="Le système est volontairement safe en V1 : il prouve la valeur avec des appels de test, sans demander de secrets ni brancher le numéro officiel."
           />
           <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="rounded-[2.5rem] border border-foreground/10 bg-white/70 p-6 shadow-sm sm:p-8">
@@ -244,7 +244,7 @@ export function PinkKoiPipelineLab() {
             <div className="rounded-[2.5rem] border border-primary/20 bg-primary/8 p-6 shadow-sm sm:p-8">
               <div className="mb-5 flex items-center gap-3">
                 <ShieldCheck className="size-6 text-primary" aria-hidden="true" />
-                <h3 className="font-display text-4xl leading-none">Gates RGPD / ChatGPT</h3>
+                <h3 className="font-display text-4xl leading-none">Gates RGPD / voix IA</h3>
               </div>
               <ul className="space-y-3 text-sm leading-6 text-muted-foreground">
                 {pinkKoiComplianceGates.map((gate) => (
@@ -279,9 +279,9 @@ export function PinkKoiPipelineLab() {
       <section id="simulateur" className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionIntro
-            kicker="Prototype agent"
-            title="Simulation réelle des demandes entrantes"
-            text="Le but n’est pas de faire joli : on vérifie que l’agent sait répondre, bloquer, escalader et ne jamais prendre une action sensible."
+            kicker="Prototype vocal"
+            title="Simulation des appels entrants"
+            text="Le but n’est pas de faire joli : on vérifie que l’assistant vocal sait répondre, bloquer, escalader et ne jamais prendre une action sensible."
           />
           <RestaurantAgentSimulator />
         </div>

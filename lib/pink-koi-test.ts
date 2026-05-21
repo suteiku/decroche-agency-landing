@@ -149,7 +149,7 @@ export const pinkKoiAudit: AuditPayload = {
       evidence:
         "Horaires, prix, menu, happy hours, voiturier et réservation existent, mais ils sont répartis dans plusieurs zones/pages.",
       businessRisk:
-        "Plus de questions répétitives avant réservation, surtout pour prix, enfants, horaires et dernière commande.",
+        "Plus d’appels répétitifs avant réservation, surtout pour tarifs, enfants, horaires et dernière commande.",
       testSignal: "Un assistant peut centraliser les réponses sans modifier le site existant.",
     },
     {
@@ -158,7 +158,7 @@ export const pinkKoiAudit: AuditPayload = {
         "Aucune FAQ visible n’explique clairement groupes, anniversaires, allergies, boissons incluses ou règles de réservation.",
       businessRisk:
         "Les demandes simples peuvent finir en appel, DM Instagram ou abandon avant réservation.",
-      testSignal: "Le prototype doit d’abord traiter les questions répétitives, pas prendre des décisions.",
+      testSignal: "Le prototype vocal doit d’abord traiter les appels répétitifs, pas prendre des décisions.",
     },
     {
       title: "Réserver est clair, poser une question l’est moins",
@@ -178,11 +178,11 @@ export const pinkKoiAudit: AuditPayload = {
   },
   quickWins: [
     "Créer un bloc réponse immédiate : prix, horaires, dernière commande, voiturier et réservation.",
-    "Ajouter un assistant FAQ non connecté qui prépare les demandes groupe/anniversaire sans confirmer de table.",
+    "Tester un assistant vocal non connecté qui prépare les demandes groupe/anniversaire sans confirmer de table.",
     "Prévoir un transfert humain automatique pour allergies, plaintes, privatisations, retard ou paiement.",
   ],
   demoOffer:
-    "Prototype contrôlé en 10 jours : assistant web privé qui répond aux questions répétitives et prépare un résumé équipe, sans toucher à Zenchef ni au téléphone.",
+    "Prototype contrôlé en 10 jours : assistant vocal privé sur numéro de test, qui répond aux appels répétitifs et prépare un résumé équipe, sans toucher à Zenchef ni au numéro officiel.",
   cta: {
     label: "Ouvrir le cockpit test interne",
     href: "/lab/pink-koi",
@@ -253,7 +253,7 @@ export const pinkKoiCrmRecord = {
   ville: "Paris 1er",
   score: 71,
   prochaineAction:
-    "Tester la page audit, le simulateur agent et la QA. Ne pas envoyer au restaurant.",
+    "Tester la page audit, le simulateur vocal et la QA. Ne pas envoyer au restaurant.",
   dateProchaineAction: "2026-05-20",
   site: "https://pinkkoi.fr/",
   lienAudit: "/audit/pink-koi-test-interne",
@@ -266,16 +266,16 @@ export const pinkKoiCloseBridge = [
   {
     label: "Ce qu’on voit",
     value: "Menu, prix, horaires et réservation existent déjà.",
-    closeAngle: "Donc le sujet n’est pas de refaire le site : c’est de réduire les questions répétitives avant réservation.",
+    closeAngle: "Donc le sujet n’est pas de refaire le site : c’est de réduire les appels répétitifs avant réservation.",
   },
   {
     label: "Ce qui bloque",
     value: "Groupes, anniversaires, allergènes, boissons incluses et dernières commandes demandent une réponse humaine.",
-    closeAngle: "Le prototype commence par aider l’équipe, pas par remplacer Zenchef ou le téléphone.",
+    closeAngle: "Le prototype commence par aider l’équipe sur un numéro de test, pas par remplacer Zenchef ou le numéro officiel.",
   },
   {
     label: "Ce qu’on propose",
-    value: "Un assistant privé qui répond, collecte les infos et prépare un résumé équipe.",
+    value: "Un assistant vocal privé qui répond au téléphone, collecte les infos et prépare un résumé équipe.",
     closeAngle: "Décision finale humaine, test court, aucune intégration risquée au départ.",
   },
 ] as const
@@ -294,7 +294,7 @@ export const pinkKoiDesignDecisions = [
     items: [
       "Pont commercial clair entre audit et rendez-vous diagnostic.",
       "Timeline après closing pour montrer que Decroche sait intervenir.",
-      "Stack et garde-fous RGPD/LLM visibles avant toute intégration API.",
+      "Stack et garde-fous RGPD/voix IA visibles avant toute intégration téléphone réelle.",
     ],
   },
   {
@@ -347,14 +347,14 @@ export const pinkKoiImplementationStack = [
     later: "Notion API seulement quand la clé est stockée en .env et jamais dans Git.",
   },
   {
-    layer: "IA / ChatGPT",
-    v1: "Prototype contrôlé avec données publiques ou validées, sans secrets ni données sensibles.",
-    later: "API LLM après DPA/conditions vérifiées, minimisation, rétention cadrée, logs filtrés.",
+    layer: "IA vocale",
+    v1: "Prototype vocal contrôlé avec données publiques ou validées, sans secrets ni données sensibles.",
+    later: "Fournisseur voix/LLM après DPA/conditions vérifiées, minimisation, rétention cadrée, logs filtrés.",
   },
   {
     layer: "Connecteurs restaurant",
-    v1: "Aucune action Zenchef/téléphone/email : seulement brouillon + résumé équipe.",
-    later: "Connexion progressive si le client valide le canal, les accès, les limites et le rollback.",
+    v1: "Aucune action Zenchef, numéro officiel ou email : seulement appel test + résumé équipe.",
+    later: "Connexion progressive au canal validé si le client accepte les accès, les limites et le rollback.",
   },
 ] as const
 
@@ -369,14 +369,14 @@ export const pinkKoiComplianceGates = [
 ] as const
 
 export const pinkKoiCloseOffer = {
-  title: "Prototype demandes entrantes — restaurant",
+  title: "Prototype appels entrants — restaurant",
   priceNote: "Bêta contrôlée : prix à valider par Bruno avant proposition réelle.",
   promise:
-    "En 10 jours, on teste un assistant privé qui répond aux questions répétitives et prépare un résumé exploitable par l’équipe.",
+    "En 10 jours, on teste un assistant vocal privé qui répond aux appels répétitifs et prépare un résumé exploitable par l’équipe.",
   includes: [
     "Audit court par lien",
     "Base de connaissance validée",
-    "Assistant privé non connecté aux actions sensibles",
+    "Assistant vocal privé sur numéro de test, non connecté aux actions sensibles",
     "10 à 20 scénarios QA",
     "Guide équipe + limites + recommandation pilote",
   ],
@@ -386,7 +386,7 @@ export const pinkKoiDeliveryPlan = [
   {
     day: "J0",
     title: "Closing fictif / test interne",
-    output: "Scope verrouillé : un seul flux, demandes entrantes restaurant.",
+    output: "Scope verrouillé : un seul flux, appels entrants simples du restaurant.",
   },
   {
     day: "J1",
@@ -401,7 +401,7 @@ export const pinkKoiDeliveryPlan = [
   {
     day: "J3-J4",
     title: "Prototype privé",
-    output: "Assistant FAQ contrôlé, non connecté à Zenchef, sans envoi automatique.",
+    output: "Assistant vocal contrôlé sur numéro de test, non connecté à Zenchef, sans envoi automatique.",
   },
   {
     day: "J5",
@@ -416,7 +416,7 @@ export const pinkKoiDeliveryPlan = [
   {
     day: "J8-J10",
     title: "Handoff pilote",
-    output: "Guide équipe, base de connaissance validée, rapport de limites.",
+    output: "Guide équipe, base de connaissance vocale validée, rapport de limites.",
   },
 ] as const
 
