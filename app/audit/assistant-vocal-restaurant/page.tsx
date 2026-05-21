@@ -100,7 +100,7 @@ const callLines = [
   },
   {
     speaker: "Assistant vocal",
-    text: "Bonjour, oui. Les horaires publics de Pink Koï indiquent une ouverture ce soir de 19h à 23h. Pour préparer la demande pour l’équipe, les enfants ont-ils moins de 10 ans ?",
+    text: "Bonjour. D’après les horaires publics de Pink Koï, le restaurant est ouvert ce soir de 19h à 23h. Pour préparer une demande complète à l’équipe, les enfants ont-ils moins de 10 ans ?",
   },
   {
     speaker: "Client",
