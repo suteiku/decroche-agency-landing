@@ -28,43 +28,43 @@ export const metadata: Metadata = {
 
 const impactKpis = [
   {
-    value: "1 appel raté",
-    label: "= 1 table potentiellement perdue",
-    note: "Quand l’équipe ne peut pas décrocher, le client peut réserver ailleurs.",
-    icon: PhoneCall,
+    value: "45 €",
+    label: "par personne récupérée",
+    note: "Mot-clé : 1 client = CA potentiel.",
+    icon: Users,
   },
   {
     value: "90 €",
-    label: "de CA potentiel pour 1 table de 2",
-    note: "Exemple lisible : 2 clients × 45 €. À remplacer par le vrai panier Pink Koï.",
+    label: "pour 2 personnes",
+    note: "Mot-clé : une petite table sauvée.",
     icon: Euro,
   },
   {
-    value: "360 € / mois",
-    label: "si 4 tables sont récupérées",
-    note: "Seulement 1 réservation sauvée par semaine peut déjà payer une partie du système.",
+    value: "180 €",
+    label: "pour 4 personnes",
+    note: "Mot-clé : une table famille récupérée.",
     icon: Euro,
   },
   {
     value: "900 € / mois",
-    label: "si 10 tables sont récupérées",
-    note: "Scénario simple à valider en call, sans promesse de chiffre d’affaires garanti.",
-    icon: Users,
+    label: "pour 20 personnes récupérées",
+    note: "Mot-clé : appels décrochés = CA récupéré.",
+    icon: PhoneCall,
   },
 ]
 
 const businessGains = [
   {
-    title: "Plus de réservations récupérées",
-    text: "L’assistant décroche quand l’équipe est prise, pour éviter qu’un client motivé parte réserver ailleurs.",
+    title: "Appel raté = client perdu",
+    text: "Le client appelle. Personne ne décroche. Il peut réserver ailleurs.",
   },
   {
-    title: "Plus de CA potentiel protégé",
-    text: "Chaque table sauvée devient un calcul clair : nombre de couverts × panier moyen × réservations récupérées.",
+    title: "Appel décroché = table sauvée",
+    text: "La voix répond, prend la demande et transmet à l’équipe.",
   },
   {
-    title: "Moins de pertes invisibles",
-    text: "Aujourd’hui, un appel non décroché ne laisse souvent aucune trace. Demain, il devient une demande qualifiée.",
+    title: "Client récupéré = CA potentiel",
+    text: "Calcul simple : nombre de personnes × panier moyen.",
   },
 ]
 
@@ -145,7 +145,7 @@ export default function VoiceRestaurantAuditPage() {
               <span className="font-display text-xl leading-none">Pink Koï</span>
             </div>
             <div className="text-sm leading-6 text-muted-foreground">
-              Une page courte pour se projeter : les tables et le chiffre d’affaires potentiel que Pink Koï peut récupérer au téléphone.
+              Une page courte pour comprendre vite : combien vaut chaque client récupéré au téléphone.
             </div>
           </div>
 
@@ -155,8 +155,8 @@ export default function VoiceRestaurantAuditPage() {
                 Une personne en plus au téléphone, sans recruter.
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-                Votre site donne déjà envie. Le vrai sujet, c’est l’argent perdu quand un appel de réservation n’est pas décroché :
-                l’assistant répond, récupère la demande et laisse l’équipe confirmer.
+                Chaque appel raté peut coûter une table. Chaque personne récupérée représente du chiffre d’affaires potentiel.
+                L’assistant décroche, prend la demande et laisse l’équipe confirmer.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" className="group">
@@ -207,10 +207,10 @@ export default function VoiceRestaurantAuditPage() {
           <div className="mt-12 rounded-[2rem] border border-foreground/10 bg-foreground p-6 text-background shadow-[0_24px_80px_rgba(19,19,14,0.14)]">
             <div className="text-xs font-semibold uppercase tracking-[0.24em] text-background/55">KPI argent</div>
             <p className="mt-3 max-w-3xl text-2xl font-semibold leading-tight text-balance sm:text-3xl">
-              Le calcul est volontairement simple : moins d’appels ratés = plus de tables récupérées.
+              Appel décroché. Client gardé. Table remplie. CA récupéré.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-background/65">
-              Ce sont des scénarios de projection, pas une garantie. En call, on remplace ces chiffres par le vrai panier moyen et le vrai volume d’appels Pink Koï.
+              Exemple basé sur 45 € par personne. À ajuster avec le panier moyen réel de Pink Koï. Ce n’est pas une garantie.
             </p>
           </div>
 
