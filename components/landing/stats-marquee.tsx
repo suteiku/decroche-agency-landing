@@ -29,7 +29,7 @@ export function StatsMarquee() {
     <div
       ref={ref}
       className={`relative overflow-hidden border-t border-foreground/10 py-8 transition-opacity duration-700 ${
-        isVisible ? "opacity-100" : "opacity-0"
+        isVisible ? "opacity-100" : "opacity-100"
       }`}
       aria-label="Indicateurs commerciaux Decroche"
     >

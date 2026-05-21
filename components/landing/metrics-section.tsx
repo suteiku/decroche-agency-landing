@@ -20,7 +20,7 @@ function AnimatedCounter({
   prefix?: string
   start?: boolean
 }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(end)
   const ref = useRef<HTMLDivElement>(null)
   const frameRef = useRef(0)
   const formatter = new Intl.NumberFormat("fr-FR")
@@ -34,14 +34,15 @@ function AnimatedCounter({
       return
     }
 
-    setCount(0)
+    const initialValue = Math.max(1, Math.floor(end * 0.72))
+    setCount(initialValue)
     const duration = 1600
     const startTime = performance.now()
     const animate = () => {
       const elapsed = performance.now() - startTime
       const progress = Math.max(0, Math.min(elapsed / duration, 1))
       const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.floor(Math.max(0, eased * end)))
+      setCount(Math.floor(Math.max(initialValue, initialValue + eased * (end - initialValue))))
 
       if (progress < 1) frameRef.current = window.requestAnimationFrame(animate)
     }
@@ -111,8 +112,8 @@ export function MetricsSection() {
               Le problème
             </span>
             <h2
-              className={`text-balance font-display text-4xl tracking-tight transition-[opacity,transform] duration-700 lg:text-6xl ${
-                isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              className={`text-balance font-display text-4xl tracking-tight transition-transform duration-700 lg:text-6xl ${
+                isVisible ? "translate-y-0" : "translate-y-4"
               }`}
             >
               Chaque appel manqué
@@ -130,8 +131,8 @@ export function MetricsSection() {
           {metrics.map((metric, index) => (
             <div
               key={metric.label}
-              className={`bg-background p-8 transition-[opacity,transform] duration-700 lg:p-12 ${
-                isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              className={`bg-background p-8 transition-transform duration-700 lg:p-12 ${
+                isVisible ? "translate-y-0" : "translate-y-8"
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >

@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react"
 
+import { AnimatedNumber, Reveal } from "@/components/audit/audit-motion"
 import { AnimatedSphere } from "@/components/landing/animated-sphere"
 import { CalSection } from "@/components/landing/cal-section"
 import { Button } from "@/components/primitives/button"
@@ -34,36 +35,41 @@ const pinkKoiBookingUrl = "https://bookings.zenchef.com/results?rid=372306&pid=1
 
 const topKpis = [
   {
-    value: "≈ 35 k€ / an",
-    label: "standard dédié à éviter",
-    detail: "Un accueil téléphonique permanent coûte vite le prix d’un poste.",
+    end: 83,
+    suffix: "%",
+    label: "des PME perdent des appels hors heures d’ouverture",
+    detail: "Le téléphone continue quand l’équipe sert, encaisse ou n’est plus sur place.",
+    icon: PhoneCall,
+  },
+  {
+    end: 900,
+    suffix: "€",
+    label: "de CA potentiel par appel manqué (max)",
+    detail: "Un groupe, un anniversaire ou une demande entreprise pèse plus qu’une simple table de deux.",
     icon: Euro,
   },
   {
-    value: "17 h / jour",
-    label: "demandes hors service",
-    detail: "Les questions arrivent aussi entre midi et soir, après fermeture ou avant ouverture.",
-    icon: Clock,
-  },
-  {
-    value: "7 h / jour",
-    label: "service à protéger",
-    detail: "Chaque appel répétitif peut couper l’accueil, la salle ou l’encaissement.",
+    end: 28000,
+    suffix: "€",
+    label: "coût annuel d’un poste réceptionniste",
+    detail: "L’assistant vocal ne remplace pas l’équipe : il évite que le téléphone mange le service.",
     icon: ShieldCheck,
   },
   {
-    value: "1 décision",
-    label: "toujours humaine",
-    detail: "L’assistant prépare. L’équipe Pink Koï confirme.",
-    icon: PhoneCall,
+    end: 500,
+    prefix: "<",
+    suffix: "ms",
+    label: "latence cible pour une conversation fluide",
+    detail: "Réponse rapide, voix naturelle, reprise humaine claire quand la demande sort du cadre.",
+    icon: Clock,
   },
 ]
 
-const decrocheStats = [
-  { value: "30 min", label: "diagnostic", sub: "pour cadrer le cas" },
-  { value: "7–10 j", label: "prototype utile", sub: "avant décision" },
-  { value: "3–5", label: "scénarios métiers", sub: "testés avec vous" },
-  { value: "4", label: "mesures", sub: "demandes · temps · qualification · reprise" },
+const agencyStats = [
+  { value: "83%", label: "d’appels manqués", sub: "HORS HEURES" },
+  { value: "350-900€", label: "CA perdu", sub: "PAR APPEL" },
+  { value: "28 000€", label: "économisés", sub: "PAR POSTE / AN" },
+  { value: "24/7", label: "disponibilité", sub: "ACCUEIL VOCAL" },
 ]
 
 const facts = [
@@ -191,16 +197,18 @@ const assistantWontDo = [
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <div className="mb-6 flex items-center gap-4">
-      <span className="font-mono text-xs uppercase tracking-[0.28em] text-muted-foreground">{children}</span>
-      <span className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
+    <div className="mb-8">
+      <span className="inline-flex items-center gap-3 font-mono text-sm uppercase tracking-[0.22em] text-primary">
+        <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
+        {children}
+      </span>
     </div>
   )
 }
 
 function Card({ children, className = "", style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   return (
-    <div className={`border border-foreground/10 bg-card/80 p-6 backdrop-blur ${className}`} style={style}>
+    <div className={`border border-foreground/10 bg-card/80 p-8 backdrop-blur transition-[border-color,box-shadow,transform] duration-300 hover:border-primary/30 lg:p-10 ${className}`} style={style}>
       {children}
     </div>
   )
@@ -224,32 +232,45 @@ export default function VoiceRestaurantAuditPage() {
         </div>
       </nav>
 
-      <section className="relative px-6 pb-20 pt-12 lg:px-12 lg:pt-18">
-        <div className="audit-grid-bg pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
-        <div className="relative mx-auto max-w-[1400px]">
-          <div className="mb-14 flex flex-wrap items-center gap-5">
+      <section className="relative overflow-hidden px-6 py-28 lg:px-12 lg:py-36">
+        <div className="audit-grid-bg pointer-events-none absolute inset-0 opacity-55" aria-hidden="true" />
+        <div className="pointer-events-none absolute right-0 top-36 h-[280px] w-[280px] opacity-20 md:right-10 md:h-[380px] md:w-[380px] lg:right-16 lg:h-[480px] lg:w-[480px]" aria-hidden="true">
+          <AnimatedSphere />
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
+          <Reveal className="mb-10 flex flex-wrap items-center gap-5" delay={40}>
             <span className="font-display text-3xl tracking-tight sm:text-4xl">Decroche Agency</span>
             <span className="font-display text-3xl text-muted-foreground sm:text-4xl">×</span>
             <img
               src="/logos/pink-koi-logo.png"
               alt="Logo Pink Koï"
-              className="size-14 rounded-full object-cover ring-1 ring-foreground/10"
+              className="size-16 rounded-full bg-white object-contain p-2 shadow-[0_12px_40px_rgba(19,19,14,0.10)] ring-1 ring-foreground/10"
               loading="eager"
               decoding="async"
             />
             <span className="font-display text-3xl tracking-tight sm:text-4xl">Pink Koï</span>
-          </div>
+          </Reveal>
 
-          <div className="grid gap-12 lg:grid-cols-[1fr_0.92fr] lg:items-center">
-            <div className="audit-reveal">
-              <p className="mb-6 font-mono text-sm uppercase tracking-[0.28em] text-primary">Audit opérationnel · accueil vocal</p>
-              <h1 className="max-w-5xl font-display text-5xl leading-[0.94] tracking-tight text-balance sm:text-6xl lg:text-8xl">
-                Pink Koï a déjà la demande. Le téléphone doit suivre.
-              </h1>
-              <p className="mt-8 max-w-3xl text-xl leading-9 text-muted-foreground">
-                Le site donne envie, les prix sont publics, Zenchef est en place. La valeur se joue maintenant sur les appels : les capter, les trier, les résumer, puis laisser l’équipe confirmer.
+          <Reveal delay={80}>
+            <span className="mb-8 inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
+              <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
+              Audit opérationnel · accueil vocal
+            </span>
+          </Reveal>
+
+          <Reveal delay={150}>
+            <h1 className="max-w-6xl text-balance font-display text-[clamp(2.7rem,7vw,6.8rem)] leading-[0.92] tracking-tight">
+              Pink Koï garde la demande. L’accueil vocal récupère les appels.
+            </h1>
+          </Reveal>
+
+          <div className="mt-14 grid items-end gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:gap-24">
+            <Reveal delay={250}>
+              <p className="max-w-xl text-pretty text-xl leading-relaxed text-muted-foreground lg:text-2xl">
+                Les bons KPI sont ceux de la décision : appels manqués, CA potentiel, coût d’un poste, disponibilité et vitesse de réponse. L’audit les applique au téléphone Pink Koï, sans promettre de CA garanti.
               </p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <Button asChild size="lg" className="group">
                   <a href="#priorites">
                     Voir les priorités
@@ -260,153 +281,140 @@ export default function VoiceRestaurantAuditPage() {
                   <a href="#appel-test">Lire l’appel test</a>
                 </Button>
               </div>
-            </div>
+            </Reveal>
 
-            <div className="audit-reveal relative" style={{ animationDelay: "120ms" }}>
-              <div className="relative min-h-[520px] overflow-hidden border border-foreground/10 bg-card/70 p-8 shadow-[0_40px_120px_rgba(19,19,14,0.08)] backdrop-blur">
-                <div className="absolute inset-0 opacity-30">
-                  <AnimatedSphere />
-                </div>
-                <div className="relative flex h-full min-h-[460px] flex-col justify-between">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.28em] text-muted-foreground">Valeur à vérifier</p>
-                    <div className="mt-8 font-display text-7xl leading-none tracking-tight text-primary sm:text-8xl">35 k€</div>
-                    <p className="mt-5 max-w-md text-2xl leading-tight text-foreground">
-                      ordre de grandeur d’un accueil téléphonique dédié sur un an.
-                    </p>
-                  </div>
-                  <div className="grid gap-px bg-foreground/10 sm:grid-cols-2">
-                    <div className="bg-background/85 p-5">
-                      <div className="font-display text-4xl text-primary">17 h</div>
-                      <div className="mt-1 text-sm text-muted-foreground">hors service à couvrir</div>
-                    </div>
-                    <div className="bg-background/85 p-5">
-                      <div className="font-display text-4xl text-primary">7 h</div>
-                      <div className="mt-1 text-sm text-muted-foreground">service à protéger</div>
+            <Reveal delay={320} direction="right" aria-label="KPI commerciaux Decroche appliqués à Pink Koï">
+              <div className="grid gap-px bg-foreground/10 sm:grid-cols-2">
+                {agencyStats.map((stat) => (
+                  <div key={stat.label} className="bg-card/88 p-7 backdrop-blur">
+                    <div className="whitespace-nowrap font-display text-4xl leading-none text-foreground lg:text-5xl">{stat.value}</div>
+                    <div className="mt-4 text-base leading-tight text-muted-foreground">
+                      {stat.label}
+                      <span className="mt-2 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">
+                        {stat.sub}
+                      </span>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            </div>
+            </Reveal>
           </div>
 
-          <div className="mt-16 overflow-hidden border-y border-foreground/10 py-8" aria-label="Résumé Decroche adapté à Pink Koï">
-            <div className="grid gap-8 md:grid-cols-4">
-              {decrocheStats.map((stat) => (
-                <div key={stat.label} className="flex items-baseline gap-4">
-                  <span className="font-display text-4xl text-foreground lg:text-5xl">{stat.value}</span>
-                  <span className="text-sm leading-tight text-muted-foreground">
-                    {stat.label}
-                    <span className="mt-1 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">
-                      {stat.sub}
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-14 grid gap-px bg-foreground/10 md:grid-cols-4" aria-label="KPI Pink Koï">
+          <div className="mt-20 grid gap-px bg-foreground/10 md:grid-cols-4" aria-label="KPI Pink Koï">
             {topKpis.map((metric, index) => {
               const Icon = metric.icon
               return (
-                <div key={metric.label} className="audit-reveal bg-background p-7 lg:p-8" style={{ animationDelay: `${index * 80}ms` }}>
-                  <Icon className="mb-8 size-6 text-primary" aria-hidden="true" />
-                  <div className="font-display text-5xl leading-none tracking-tight text-primary">{metric.value}</div>
-                  <div className="mt-3 text-xl font-semibold tracking-tight">{metric.label}</div>
-                  <p className="mt-4 text-base leading-7 text-muted-foreground">{metric.detail}</p>
-                </div>
+                <Reveal key={metric.label} delay={index * 100} className="h-full">
+                  <div className="h-full bg-background p-8 lg:p-10">
+                    <Icon className="mb-8 size-6 text-primary" aria-hidden="true" />
+                    <AnimatedNumber
+                      end={metric.end}
+                      prefix={metric.prefix}
+                      suffix={metric.suffix}
+                      className="block font-display text-6xl leading-none tracking-tight text-primary lg:text-7xl"
+                    />
+                    <div className="mt-5 text-lg text-muted-foreground">{metric.label}</div>
+                    <p className="mt-5 text-base leading-7 text-muted-foreground">{metric.detail}</p>
+                  </div>
+                </Reveal>
               )
             })}
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-12" id="priorites">
+      <section className="px-6 py-24 lg:px-12 lg:py-32" id="priorites">
         <div className="mx-auto max-w-[1400px]">
           <SectionLabel>Priorités de l’audit</SectionLabel>
-          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-            <div>
-              <h2 className="font-display text-5xl leading-tight tracking-tight text-balance lg:text-7xl">
+          <div className="grid gap-16 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-24">
+            <Reveal>
+              <h2 className="text-balance font-display text-4xl tracking-tight lg:text-6xl">
                 Quatre pertes possibles. Quatre corrections simples.
               </h2>
-              <p className="mt-8 max-w-2xl text-xl leading-9 text-muted-foreground">
+              <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
                 Un bon audit ne liste pas des idées. Il montre où la demande se bloque et ce qu’il faut tester en premier.
               </p>
-            </div>
+            </Reveal>
             <div className="grid gap-4">
               {recommendations.map((item, index) => (
-                <Card key={item.title} className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr]" style={{ animationDelay: `${index * 80}ms` }}>
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Priorité</p>
-                    <h3 className="mt-3 text-2xl font-semibold leading-tight text-balance">{item.title}</h3>
-                  </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="border border-foreground/10 bg-secondary/50 p-4">
-                      <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Aujourd’hui</p>
-                      <p className="text-base leading-7">{item.current}</p>
+                <Reveal key={item.title} delay={index * 100}>
+                  <Card className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
+                    <div>
+                      <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Priorité</p>
+                      <h3 className="mt-3 text-2xl font-semibold leading-tight text-balance">{item.title}</h3>
                     </div>
-                    <div className="border border-primary/20 bg-primary/5 p-4">
-                      <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-primary">Avec l’assistant</p>
-                      <p className="text-base leading-7">{item.next}</p>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="border border-foreground/10 bg-secondary/50 p-5">
+                        <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Aujourd’hui</p>
+                        <p className="text-base leading-7">{item.current}</p>
+                      </div>
+                      <div className="border border-primary/20 bg-primary/5 p-5">
+                        <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-primary">Avec l’assistant</p>
+                        <p className="text-base leading-7">{item.next}</p>
+                      </div>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                </Reveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-foreground/10 px-6 py-20 lg:px-12">
+      <section className="border-y border-foreground/10 px-6 py-24 lg:px-12 lg:py-32">
         <div className="mx-auto max-w-[1400px]">
           <SectionLabel>Base vérifiée</SectionLabel>
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div>
-              <h2 className="font-display text-5xl leading-tight tracking-tight text-balance lg:text-7xl">
+          <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-24">
+            <Reveal>
+              <h2 className="text-balance font-display text-4xl tracking-tight lg:text-6xl">
                 Les réponses sont déjà là. Elles doivent être faciles à obtenir.
               </h2>
-            </div>
+            </Reveal>
             <div className="grid gap-px bg-foreground/10 sm:grid-cols-2">
-              {facts.map((fact) => (
-                <div key={fact.label} className="bg-background p-6">
-                  <p className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">{fact.label}</p>
-                  {"href" in fact ? (
-                    <a href={fact.href} rel={safeExternalRel} target="_blank" className="mt-3 inline-flex text-xl font-semibold text-primary underline-offset-4 hover:underline">
-                      {fact.value}
-                    </a>
-                  ) : (
-                    <p className="mt-3 text-xl font-semibold leading-tight">{fact.value}</p>
-                  )}
-                </div>
+              {facts.map((fact, index) => (
+                <Reveal key={fact.label} delay={index * 70} className="h-full">
+                  <div className="h-full bg-background p-7">
+                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">{fact.label}</p>
+                    {"href" in fact ? (
+                      <a href={fact.href} rel={safeExternalRel} target="_blank" className="mt-3 inline-flex text-xl font-semibold text-primary underline-offset-4 hover:underline">
+                        {fact.value}
+                      </a>
+                    ) : (
+                      <p className="mt-3 text-xl font-semibold leading-tight">{fact.value}</p>
+                    )}
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
 
           <div className="mt-14 grid gap-px bg-foreground/10 md:grid-cols-4" aria-label="Valeurs retrouvées de l’audit Pink Koï">
-            {auditValues.map((item) => (
-              <div key={item.label} className="bg-card p-6">
-                <div className="font-display text-5xl leading-none text-primary">{item.value}</div>
-                <h3 className="mt-4 text-lg font-semibold">{item.label}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.detail}</p>
-              </div>
+            {auditValues.map((item, index) => (
+              <Reveal key={item.label} delay={index * 80} className="h-full">
+                <div className="h-full bg-card p-8">
+                  <div className="font-display text-5xl leading-none text-primary">{item.value}</div>
+                  <h3 className="mt-4 text-lg font-semibold">{item.label}</h3>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.detail}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-12" id="appel-test">
-        <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[0.84fr_1.16fr] lg:items-start">
-          <div>
+      <section className="px-6 py-24 lg:px-12 lg:py-32" id="appel-test">
+        <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-[0.84fr_1.16fr] lg:items-start lg:gap-24">
+          <Reveal>
             <SectionLabel>Simulation vocale</SectionLabel>
-            <h2 className="font-display text-5xl leading-tight tracking-tight text-balance lg:text-7xl">
+            <h2 className="text-balance font-display text-4xl tracking-tight lg:text-6xl">
               Une vraie question. Une vraie réponse. Puis un résumé exploitable.
             </h2>
-            <p className="mt-8 max-w-2xl text-xl leading-9 text-muted-foreground">
+            <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
               La voix répond dans l’ordre : horaires, contexte, prix, collecte utile, confirmation humaine.
             </p>
-          </div>
-          <Card className="bg-foreground text-background">
+          </Reveal>
+          <Reveal delay={140} direction="right">
+            <Card className="bg-foreground text-background">
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4 text-background/70">
               <div className="flex items-center gap-3">
                 <Headphones className="size-5" aria-hidden="true" />
@@ -418,105 +426,119 @@ export default function VoiceRestaurantAuditPage() {
             </div>
             <div className="mb-6 flex items-end gap-1" aria-hidden="true">
               {[18, 32, 24, 44, 28, 52, 22, 38, 30, 46, 20, 34, 48, 26].map((height, index) => (
-                <span key={`${height}-${index}`} className="w-1 rounded-full bg-blue-200/70" style={{ height: `${height}px` }} />
+                <span
+                  key={`${height}-${index}`}
+                  className="audit-wave-bar w-1 rounded-full bg-blue-200/70"
+                  style={{ height: `${height}px`, animationDelay: `${index * 70}ms` }}
+                />
               ))}
             </div>
             <div className="space-y-3">
               {callLines.map((line, index) => {
                 const isRestaurant = line.speaker === "Accueil Pink Koï"
                 return (
-                  <div
-                    key={`${line.speaker}-${index}`}
-                    className={`grid gap-3 border p-4 sm:grid-cols-[10rem_1fr] ${
-                      isRestaurant ? "border-background/15 bg-background text-foreground" : "border-primary/35 bg-primary/20 text-background"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] opacity-65">
-                      {isRestaurant ? <Sparkles className="size-4" aria-hidden="true" /> : <PhoneCall className="size-4" aria-hidden="true" />}
-                      {line.speaker}
+                  <Reveal key={`${line.speaker}-${index}`} delay={index * 55}>
+                    <div
+                      className={`grid gap-3 border p-4 sm:grid-cols-[10rem_1fr] ${
+                        isRestaurant ? "border-background/15 bg-background text-foreground" : "border-primary/35 bg-primary/20 text-background"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] opacity-65">
+                        {isRestaurant ? <Sparkles className="size-4" aria-hidden="true" /> : <PhoneCall className="size-4" aria-hidden="true" />}
+                        {line.speaker}
+                      </div>
+                      <p className="text-base leading-7">{line.text}</p>
                     </div>
-                    <p className="text-base leading-7">{line.text}</p>
-                  </div>
+                  </Reveal>
                 )
               })}
             </div>
             <div className="mt-6 border border-background/15 bg-background/10 p-5 text-base leading-7 text-background/78">
               Résultat : horaires et prix répondus, contact collecté, demande résumée, table encore à confirmer par Pink Koï.
             </div>
-          </Card>
+            </Card>
+          </Reveal>
         </div>
       </section>
 
-      <section className="border-y border-foreground/10 bg-foreground px-6 py-20 text-background lg:px-12">
+      <section className="border-y border-foreground/10 bg-foreground px-6 py-24 text-background lg:px-12 lg:py-32">
         <div className="mx-auto max-w-[1400px]">
           <SectionLabel>Livrable Decroche</SectionLabel>
-          <div className="grid gap-10 lg:grid-cols-[0.84fr_1.16fr] lg:items-start">
-            <div>
-              <h2 className="font-display text-5xl leading-tight tracking-tight text-balance lg:text-7xl">
+          <div className="grid gap-16 lg:grid-cols-[0.84fr_1.16fr] lg:items-start lg:gap-24">
+            <Reveal>
+              <h2 className="text-balance font-display text-4xl tracking-tight lg:text-6xl">
                 Une preuve appelable avant toute mise en service.
               </h2>
-              <p className="mt-8 max-w-2xl text-xl leading-9 text-background/70">
+              <p className="mt-8 max-w-xl text-lg leading-relaxed text-background/70">
                 Le but n’est pas de promettre. Le but est d’écouter, tester et décider sur des appels réels simulés.
               </p>
-            </div>
+            </Reveal>
             <div className="grid gap-4 sm:grid-cols-2">
-              {deliverables.map(([title, text]) => (
-                <div key={title} className="border border-background/15 bg-background/8 p-6">
-                  <CalendarCheck className="mb-6 size-6 text-blue-200" aria-hidden="true" />
-                  <h3 className="text-2xl font-semibold">{title}</h3>
-                  <p className="mt-4 text-base leading-7 text-background/70">{text}</p>
-                </div>
+              {deliverables.map(([title, text], index) => (
+                <Reveal key={title} delay={index * 100} className="h-full">
+                  <div className="h-full border border-background/15 bg-background/8 p-8">
+                    <CalendarCheck className="mb-6 size-6 text-blue-200" aria-hidden="true" />
+                    <h3 className="text-2xl font-semibold">{title}</h3>
+                    <p className="mt-4 text-base leading-7 text-background/70">{text}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-2">
-            <div className="border border-background/15 p-8">
-              <h3 className="text-3xl font-semibold tracking-tight">Ce que la voix peut faire</h3>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {assistantCanDo.map((item) => (
-                  <div key={item} className="flex gap-3 text-base leading-7 text-background/78">
-                    <CheckCircle2 className="mt-1 size-5 shrink-0 text-blue-200" aria-hidden="true" />
-                    {item}
-                  </div>
-                ))}
+            <Reveal className="h-full">
+              <div className="h-full border border-background/15 p-8 lg:p-10">
+                <h3 className="text-3xl font-semibold tracking-tight">Ce que la voix peut faire</h3>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {assistantCanDo.map((item) => (
+                    <div key={item} className="flex gap-3 text-base leading-7 text-background/78">
+                      <CheckCircle2 className="mt-1 size-5 shrink-0 text-blue-200" aria-hidden="true" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="border border-background/15 p-8">
-              <h3 className="flex items-center gap-3 text-3xl font-semibold tracking-tight">
-                <ShieldCheck className="size-7" aria-hidden="true" />
-                Ce qui reste humain
-              </h3>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {assistantWontDo.map((item) => (
-                  <div key={item} className="border border-background/15 bg-background/8 p-3 text-base leading-7 text-background/74">
-                    {item}
-                  </div>
-                ))}
+            </Reveal>
+            <Reveal className="h-full" delay={120} direction="right">
+              <div className="h-full border border-background/15 p-8 lg:p-10">
+                <h3 className="flex items-center gap-3 text-3xl font-semibold tracking-tight">
+                  <ShieldCheck className="size-7" aria-hidden="true" />
+                  Ce qui reste humain
+                </h3>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {assistantWontDo.map((item) => (
+                    <div key={item} className="border border-background/15 bg-background/8 p-3 text-base leading-7 text-background/74">
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-12">
+      <section className="px-6 py-24 lg:px-12 lg:py-32">
         <div className="mx-auto max-w-[1400px]">
           <SectionLabel>Plan de test</SectionLabel>
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-            <div>
-              <h2 className="font-display text-5xl leading-tight tracking-tight text-balance lg:text-7xl">
+          <div className="grid gap-16 lg:grid-cols-[0.72fr_1.28fr] lg:gap-24">
+            <Reveal>
+              <h2 className="text-balance font-display text-4xl tracking-tight lg:text-6xl">
                 Dix jours pour savoir si ça mérite d’aller plus loin.
               </h2>
-            </div>
+            </Reveal>
             <div className="grid gap-px bg-foreground/10">
-              {deliverySteps.map((step) => (
-                <div key={step.day} className="grid gap-4 bg-background p-6 sm:grid-cols-[130px_1fr] sm:items-center">
-                  <div className="font-mono text-sm uppercase tracking-[0.22em] text-primary">{step.day}</div>
-                  <div>
-                    <h3 className="text-2xl font-semibold tracking-tight">{step.title}</h3>
-                    <p className="mt-2 text-base leading-7 text-muted-foreground">{step.text}</p>
+              {deliverySteps.map((step, index) => (
+                <Reveal key={step.day} delay={index * 85}>
+                  <div className="grid gap-4 bg-background p-8 sm:grid-cols-[130px_1fr] sm:items-center">
+                    <div className="font-mono text-sm uppercase tracking-[0.22em] text-primary">{step.day}</div>
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-tight">{step.title}</h3>
+                      <p className="mt-2 text-base leading-7 text-muted-foreground">{step.text}</p>
+                    </div>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>

@@ -318,6 +318,24 @@
     }
   }
 
+  .audit-wave-bar {
+    display: inline-block;
+    transform-origin: bottom;
+    animation: audit-wave 1.4s ease-in-out infinite;
+  }
+
+  @keyframes audit-wave {
+    0%,
+    100% {
+      transform: scaleY(0.72);
+      opacity: 0.55;
+    }
+    50% {
+      transform: scaleY(1.18);
+      opacity: 1;
+    }
+  }
+
   .audit-grid-bg {
     background-image:
       linear-gradient(color-mix(in oklch, var(--foreground) 7%, transparent) 1px, transparent 1px),
@@ -344,7 +362,8 @@
   .audit-reveal,
   .audit-float,
   .audit-shimmer,
-  .audit-scanline::after {
+  .audit-scanline::after,
+  .audit-wave-bar {
     animation: none !important;
     filter: none !important;
     opacity: 1 !important;
