@@ -9,47 +9,48 @@ type Metric = {
   label: string
 }
 
-function AnimatedCounter({ end, suffix = "", prefix = "" }: { end: number; suffix?: string; prefix?: string }) {
+function AnimatedCounter({
+  end,
+  suffix = "",
+  prefix = "",
+  start = false,
+}: {
+  end: number
+  suffix?: string
+  prefix?: string
+  start?: boolean
+}) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
   const frameRef = useRef(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
   const formatter = new Intl.NumberFormat("fr-FR")
 
   useEffect(() => {
+    if (!start) return
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (reduceMotion) {
       setCount(end)
       return
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true)
-          const duration = 1600
-          const startTime = performance.now()
-          const animate = (currentTime: number) => {
-            const elapsed = currentTime - startTime
-            const progress = Math.min(elapsed / duration, 1)
-            const eased = 1 - Math.pow(1 - progress, 3)
-            setCount(Math.floor(eased * end))
+    setCount(0)
+    const duration = 1600
+    const startTime = performance.now()
+    const animate = () => {
+      const elapsed = performance.now() - startTime
+      const progress = Math.max(0, Math.min(elapsed / duration, 1))
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.floor(Math.max(0, eased * end)))
 
-            if (progress < 1) frameRef.current = requestAnimationFrame(animate)
-          }
-
-          frameRef.current = requestAnimationFrame(animate)
-        }
-      },
-      { threshold: 0.5 },
-    )
-
-    if (ref.current) observer.observe(ref.current)
-    return () => {
-      observer.disconnect()
-      cancelAnimationFrame(frameRef.current)
+      if (progress < 1) frameRef.current = window.requestAnimationFrame(animate)
     }
-  }, [end, hasAnimated])
+
+    frameRef.current = window.requestAnimationFrame(animate)
+    return () => {
+      window.cancelAnimationFrame(frameRef.current)
+    }
+  }, [end, start])
 
   return (
     <div ref={ref} className="font-display text-6xl tracking-tight text-primary lg:text-8xl">
@@ -62,21 +63,25 @@ function AnimatedCounter({ end, suffix = "", prefix = "" }: { end: number; suffi
 
 const metrics: Metric[] = [
   {
-    value: 1,
-    label: "point de contact à traiter proprement au lieu de laisser la demande se perdre.",
+    value: 83,
+    suffix: "%",
+    label: "des PME perdent des appels hors heures d'ouverture",
   },
   {
-    value: 3,
-    label: "actions utiles : répondre, qualifier, préparer le rendez-vous ou le transfert.",
+    value: 900,
+    suffix: "€",
+    label: "de CA potentiel par appel manqué (max)",
   },
   {
-    value: 10,
-    suffix: " j",
-    label: "pour produire une démo contrôlée sur vos vrais scénarios, avant toute mise en production.",
+    value: 28000,
+    suffix: "€",
+    label: "coût annuel d’un poste réceptionniste (35h/semaine). 10 postes = 280 000€/an.",
   },
   {
-    value: 4,
-    label: "mesures simples : demandes traitées, temps gagné, leads qualifiés, reprises humaines.",
+    value: 500,
+    prefix: "<",
+    suffix: "ms",
+    label: "de latence end-to-end. Conversation fluide, indiscernable d’un humain.",
   },
 ]
 
@@ -110,14 +115,14 @@ export function MetricsSection() {
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
               }`}
             >
-              Vos demandes entrantes
+              Chaque appel manqué
               <br />
-              <span className="text-muted-foreground">doivent être captées.</span>
+              <span className="text-muted-foreground">est un client perdu.</span>
             </h2>
           </div>
           <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
-            On ne vend pas une IA vague. On choisit un flux répétitif, on le transforme en assistant
-            simple, puis on mesure s’il aide vraiment.
+            On remet ici les valeurs fortes : appels perdus, CA potentiel, coût d’un poste et vitesse
+            de réponse. C’est la base de la décision.
           </p>
         </div>
 
@@ -130,7 +135,7 @@ export function MetricsSection() {
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <AnimatedCounter end={metric.value} suffix={metric.suffix} prefix={metric.prefix} />
+              <AnimatedCounter end={metric.value} suffix={metric.suffix} prefix={metric.prefix} start={isVisible} />
               <div className="mt-4 text-lg text-muted-foreground">{metric.label}</div>
             </div>
           ))}

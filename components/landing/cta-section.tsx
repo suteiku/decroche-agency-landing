@@ -52,14 +52,14 @@ export function CtaSection() {
             <div className="flex flex-col items-center gap-12 text-center">
               <div>
                 <h2 className="text-balance mb-8 font-display text-4xl leading-[0.95] tracking-tight lg:text-7xl">
-                  Vous avez un flux
+                  Ne perdez plus
                   <br />
-                  <span className="text-primary">répétitif à traiter ?</span>
+                  <span className="text-primary">un seul appel.</span>
                 </h2>
 
                 <p className="text-pretty mx-auto mb-12 max-w-2xl text-xl leading-relaxed text-muted-foreground">
-                  On part d’un problème réel, pas d’une promesse IA. En 30 minutes, on décide si un
-                  assistant peut vraiment vous faire gagner du temps.
+                  Vos concurrents répondent pendant que vous servez, dormez ou gérez l’urgence.
+                  Combien d’opportunités laissez-vous partir chaque mois ?
                 </p>
 
                 <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -82,7 +82,7 @@ export function CtaSection() {
                 </div>
 
                 <p className="mt-8 font-mono text-sm text-muted-foreground">
-                  Diagnostic gratuit en bêta. Sans engagement. Décision humaine finale.
+                  Diagnostic de 30 minutes. Sans engagement. Objectif : mesurer le manque à gagner.
                 </p>
               </div>
             </div>

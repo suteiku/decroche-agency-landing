@@ -6,18 +6,18 @@ import { Phone, Brain, Zap, CheckCircle2 } from "lucide-react";
 const steps = [
   {
     number: "I",
-    title: "Diagnostic (30 min)",
-    description: "On choisit un flux répétitif, on note les limites et on estime ce qui mérite vraiment un assistant.",
+    title: "Audit (30 min)",
+    description: "On analyse vos besoins, votre flux d’appels et vos outils existants. Pas de blabla, juste les faits.",
   },
   {
     number: "II",
-    title: "Démo contrôlée (7–10 jours)",
-    description: "Script métier, scénarios de test, voix ou interface, intégrations simples. Pas de mise en prod à l’aveugle.",
+    title: "Configuration (10 jours)",
+    description: "Voix française, script métier, intégrations CRM et agenda. On teste avant la mise en ligne.",
   },
   {
     number: "III",
-    title: "Installation + suivi",
-    description: "Mise en service progressive, reprise humaine prévue, rapport clair et améliorations mensuelles.",
+    title: "Live + optimisation",
+    description: "Mise en production progressive, monitoring et ajustements. Vous dormez, le système continue de capter.",
   },
 ];
 
@@ -227,9 +227,9 @@ export function HowItWorksSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            De l’idée au test.
+            En 3 étapes.
             <br />
-            <span className="text-background/50">Puis seulement au déploiement.</span>
+            <span className="text-background/50">De l’audit au live.</span>
           </h2>
         </div>
 

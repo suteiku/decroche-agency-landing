@@ -5,30 +5,30 @@ import { useEffect, useRef, useState } from "react";
 const features = [
   {
     number: "01",
-    title: "Réponse guidée",
+    title: "Réception 24/7",
     description:
-      "L’assistant répond selon vos règles : horaires, services, questions fréquentes, informations à collecter.",
+      "Jamais d’appel manqué, même le dimanche soir. Votre assistant décroche vite, à toute heure utile.",
     visual: "reception",
   },
   {
     number: "02",
-    title: "Qualification claire",
+    title: "Qualification intelligente",
     description:
-      "Il identifie le motif, le niveau d’urgence, les coordonnées et les éléments utiles avant de transmettre.",
+      "L’IA identifie le motif de l’appel, priorise les demandes chaudes et transmet au bon endroit.",
     visual: "qualify",
   },
   {
     number: "03",
-    title: "Rendez-vous préparé",
+    title: "Prise de RDV & CRM",
     description:
-      "Il peut préparer un créneau, alimenter un CRM ou créer une fiche de suivi selon vos outils existants.",
+      "Intégration à l’agenda et au suivi client : rendez-vous préparé, fiche créée, zéro saisie inutile.",
     visual: "crm",
   },
   {
     number: "04",
-    title: "Transfert humain",
+    title: "Cadre & transfert humain",
     description:
-      "Quand la demande sort du cadre, l’humain reprend avec un résumé exploitable et les limites documentées.",
+      "Transparence IA, limites écrites, transfert humain avec résumé complet quand la demande sort du cadre.",
     visual: "transfer",
   },
 ];

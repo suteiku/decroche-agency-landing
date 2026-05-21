@@ -7,7 +7,7 @@ export const site = {
     "Decroche installe des assistants IA métier pour PME de services : réponse, qualification, préparation du rendez-vous et transfert humain quand il faut.",
 } as const
 
-export const primaryCta = "Planifier un diagnostic"
-export const secondaryCta = "Voir les offres"
+export const primaryCta = "Tester la démo"
+export const secondaryCta = "Voir les tarifs"
 
 export const safeExternalRel = "noopener noreferrer"

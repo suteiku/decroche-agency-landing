@@ -7,7 +7,7 @@ import { Button } from "@/components/primitives/button"
 import { primaryCta, safeExternalRel, secondaryCta, site } from "@/lib/site"
 import { AnimatedSphere } from "./animated-sphere"
 
-const words = ["décroche", "qualifie", "prépare", "transfère"]
+const words = ["décroche", "qualifie", "prend RDV", "transfère"]
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -59,7 +59,7 @@ export function HeroSection() {
         >
           <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
             <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
-            Assistants IA métier pour PME de services
+            Agents vocaux IA pour PME
           </span>
         </div>
 
@@ -69,7 +69,7 @@ export function HeroSection() {
               isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
             }`}
           >
-            <span className="block">Un assistant IA</span>
+            <span className="block">Un assistant vocal</span>
             <span className="block">
               qui{" "}
               <span className="relative inline-block text-primary">
@@ -96,8 +96,8 @@ export function HeroSection() {
               isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             }`}
           >
-            Ne laissez plus les demandes clients tomber dans le vide. Decroche installe un
-            assistant qui répond, qualifie et prépare le suivi — avec une décision humaine finale.
+            Ne perdez plus un appel. Réceptionnez vos clients 24/7 avec une voix humaine en français.
+            Chaque demande est qualifiée, résumée, puis transmise quand l’humain doit reprendre.
           </p>
 
           <div
