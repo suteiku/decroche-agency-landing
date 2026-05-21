@@ -3,9 +3,7 @@ import Link from "next/link"
 import type { ReactNode } from "react"
 import {
   ArrowRight,
-  CalendarCheck,
   CheckCircle2,
-  Clock,
   Euro,
   Headphones,
   PhoneCall,
@@ -21,7 +19,7 @@ import { safeExternalRel, site } from "@/lib/site"
 export const metadata: Metadata = {
   title: "Decroche Agency × Pink Koï — Assistant vocal",
   description:
-    "Une page courte pour montrer ce que Pink Koï peut gagner avec un assistant vocal qui décroche les appels simples.",
+    "Une page courte pour montrer le chiffre d’affaires potentiel que Pink Koï peut récupérer avec un assistant vocal téléphonique.",
   robots: {
     index: false,
     follow: false,
@@ -30,43 +28,43 @@ export const metadata: Metadata = {
 
 const impactKpis = [
   {
-    value: "6–21 h",
-    label: "de temps équipe à protéger par mois",
-    note: "Estimation prudente si 5 à 12 appels simples par jour durent 3 à 4 minutes.",
-    icon: Clock,
+    value: "1 appel raté",
+    label: "= 1 table potentiellement perdue",
+    note: "Quand l’équipe ne peut pas décrocher, le client peut réserver ailleurs.",
+    icon: PhoneCall,
   },
   {
-    value: "120–420 €",
-    label: "de temps opérationnel à récupérer",
-    note: "Ordre de grandeur mensuel, à valider avec vos vrais volumes d’appels.",
+    value: "90 €",
+    label: "de CA potentiel pour 1 table de 2",
+    note: "Exemple lisible : 2 clients × 45 €. À remplacer par le vrai panier Pink Koï.",
     icon: Euro,
   },
   {
-    value: "1 voix",
-    label: "d’accueil en plus pendant le rush",
-    note: "Elle décroche, répond, qualifie et transmet quand l’équipe est occupée.",
-    icon: Users,
+    value: "360 € / mois",
+    label: "si 4 tables sont récupérées",
+    note: "Seulement 1 réservation sauvée par semaine peut déjà payer une partie du système.",
+    icon: Euro,
   },
   {
-    value: "10 j",
-    label: "pour tester un prototype appelable",
-    note: "Numéro privé, scénarios réels, validation avant toute utilisation officielle.",
-    icon: CalendarCheck,
+    value: "900 € / mois",
+    label: "si 10 tables sont récupérées",
+    note: "Scénario simple à valider en call, sans promesse de chiffre d’affaires garanti.",
+    icon: Users,
   },
 ]
 
 const businessGains = [
   {
-    title: "Moins d’interruptions en plein service",
-    text: "Les questions simples ne coupent plus l’accueil, la salle ou l’encaissement.",
+    title: "Plus de réservations récupérées",
+    text: "L’assistant décroche quand l’équipe est prise, pour éviter qu’un client motivé parte réserver ailleurs.",
   },
   {
-    title: "Des demandes mieux préparées",
-    text: "Groupe, enfants, anniversaire, horaire souhaité : l’équipe reçoit l’essentiel avant de confirmer.",
+    title: "Plus de CA potentiel protégé",
+    text: "Chaque table sauvée devient un calcul clair : nombre de couverts × panier moyen × réservations récupérées.",
   },
   {
-    title: "Une image plus premium au téléphone",
-    text: "Le client obtient une réponse fluide, cohérente avec Pink Koï, même quand personne ne peut décrocher.",
+    title: "Moins de pertes invisibles",
+    text: "Aujourd’hui, un appel non décroché ne laisse souvent aucune trace. Demain, il devient une demande qualifiée.",
   },
 ]
 
@@ -147,7 +145,7 @@ export default function VoiceRestaurantAuditPage() {
               <span className="font-display text-xl leading-none">Pink Koï</span>
             </div>
             <div className="text-sm leading-6 text-muted-foreground">
-              Une page courte pour se projeter : ce que Pink Koï peut gagner avec un accueil vocal qui décroche les appels simples.
+              Une page courte pour se projeter : les tables et le chiffre d’affaires potentiel que Pink Koï peut récupérer au téléphone.
             </div>
           </div>
 
@@ -157,8 +155,8 @@ export default function VoiceRestaurantAuditPage() {
                 Une personne en plus au téléphone, sans recruter.
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-                Votre site donne déjà envie. Le sujet n’est pas de refaire la vitrine : c’est de décrocher plus souvent,
-                répondre plus vite et laisser l’équipe concentrée sur les clients en salle.
+                Votre site donne déjà envie. Le vrai sujet, c’est l’argent perdu quand un appel de réservation n’est pas décroché :
+                l’assistant répond, récupère la demande et laisse l’équipe confirmer.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" className="group">
@@ -206,7 +204,17 @@ export default function VoiceRestaurantAuditPage() {
             </div>
           </div>
 
-          <div className="mt-12 grid gap-3 md:grid-cols-4" aria-label="KPI d’impact Pink Koï">
+          <div className="mt-12 rounded-[2rem] border border-foreground/10 bg-foreground p-6 text-background shadow-[0_24px_80px_rgba(19,19,14,0.14)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.24em] text-background/55">KPI argent</div>
+            <p className="mt-3 max-w-3xl text-2xl font-semibold leading-tight text-balance sm:text-3xl">
+              Le calcul est volontairement simple : moins d’appels ratés = plus de tables récupérées.
+            </p>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-background/65">
+              Ce sont des scénarios de projection, pas une garantie. En call, on remplace ces chiffres par le vrai panier moyen et le vrai volume d’appels Pink Koï.
+            </p>
+          </div>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-4" aria-label="KPI argent Pink Koï">
             {impactKpis.map((metric, index) => {
               const Icon = metric.icon
               return (
