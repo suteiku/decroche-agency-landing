@@ -19,7 +19,7 @@ import { safeExternalRel, site } from "@/lib/site"
 export const metadata: Metadata = {
   title: "Decroche Agency × Pink Koï — Assistant vocal",
   description:
-    "Une page courte pour montrer le chiffre d’affaires potentiel que Pink Koï peut récupérer avec un assistant vocal téléphonique.",
+    "Assistant vocal téléphonique Pink Koï : combien peut rapporter chaque personne récupérée au téléphone, avec confirmation finale par l’équipe.",
   robots: {
     index: false,
     follow: false,
@@ -29,26 +29,26 @@ export const metadata: Metadata = {
 const impactKpis = [
   {
     value: "45 €",
-    label: "par personne récupérée",
-    note: "Mot-clé : 1 client = CA potentiel.",
+    label: "par personne à table",
+    note: "Mot-clé : 1 personne = panier moyen.",
     icon: Users,
   },
   {
     value: "90 €",
     label: "pour 2 personnes",
-    note: "Mot-clé : une petite table sauvée.",
+    note: "Mot-clé : table de 2 sauvée.",
     icon: Euro,
   },
   {
     value: "180 €",
     label: "pour 4 personnes",
-    note: "Mot-clé : une table famille récupérée.",
+    note: "Mot-clé : table de 4 récupérée.",
     icon: Euro,
   },
   {
     value: "900 € / mois",
-    label: "pour 20 personnes récupérées",
-    note: "Mot-clé : appels décrochés = CA récupéré.",
+    label: "si 20 personnes reviennent",
+    note: "Mot-clé : appels récupérés.",
     icon: PhoneCall,
   },
 ]
@@ -63,8 +63,8 @@ const businessGains = [
     text: "La voix répond, prend la demande et transmet à l’équipe.",
   },
   {
-    title: "Client récupéré = CA potentiel",
-    text: "Calcul simple : nombre de personnes × panier moyen.",
+    title: "Personne récupérée = CA potentiel",
+    text: "Calcul simple : personnes récupérées × panier moyen.",
   },
 ]
 
@@ -88,7 +88,7 @@ const callLines = [
 ]
 
 const installedPieces = [
-  "Une voix d’accueil entraînée sur vos réponses",
+  "Une voix d’accueil qui parle comme Pink Koï",
   "Un numéro de test pour appeler le prototype",
   "Les scénarios répétitifs : horaires, tarifs, groupes, enfants",
   "Un résumé clair envoyé à l’équipe après chaque demande utile",
@@ -144,24 +144,41 @@ export default function VoiceRestaurantAuditPage() {
               />
               <span className="font-display text-xl leading-none">Pink Koï</span>
             </div>
-            <div className="text-sm leading-6 text-muted-foreground">
-              Une page courte pour comprendre vite : combien vaut chaque client récupéré au téléphone.
+            <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 text-sm leading-6">
+              <span className="rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary">Assistant vocal téléphonique</span>
+              <span className="font-semibold text-foreground">45 € / personne à table</span>
+              <span className="text-muted-foreground">•</span>
+              <span className="text-muted-foreground">Appel décroché = table sauvée.</span>
             </div>
           </div>
 
           <div className="grid gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
             <div className="audit-reveal">
               <h1 className="max-w-4xl font-display text-5xl leading-[0.95] tracking-tight text-balance sm:text-6xl lg:text-7xl">
-                Une personne en plus au téléphone, sans recruter.
+                Pink Koï : chaque appel décroché peut sauver une table.
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-                Chaque appel raté peut coûter une table. Chaque personne récupérée représente du chiffre d’affaires potentiel.
-                L’assistant décroche, prend la demande et laisse l’équipe confirmer.
+                Pink Koï a déjà une image premium. Decroche ajoute l’accueil vocal : il répond au téléphone,
+                récupère les personnes, prépare la demande et laisse l’équipe confirmer.
               </p>
+              <div className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
+                <div className="rounded-2xl border border-foreground/10 bg-card/80 p-4 shadow-sm">
+                  <div className="font-display text-3xl leading-none">45 €</div>
+                  <div className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">par personne</div>
+                </div>
+                <div className="rounded-2xl border border-foreground/10 bg-card/80 p-4 shadow-sm">
+                  <div className="text-sm font-semibold">Appel vocal</div>
+                  <div className="mt-2 text-sm text-muted-foreground">pas une messagerie</div>
+                </div>
+                <div className="rounded-2xl border border-foreground/10 bg-card/80 p-4 shadow-sm">
+                  <div className="text-sm font-semibold">Pas un audit de site</div>
+                  <div className="mt-2 text-sm text-muted-foreground">on ajoute le téléphone</div>
+                </div>
+              </div>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" className="group">
                   <a href="#appel">
-                    Voir l’appel type
+                    Voir la démo téléphonique
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </a>
                 </Button>
@@ -179,7 +196,8 @@ export default function VoiceRestaurantAuditPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent,rgba(0,0,0,0.74))]" />
                 <div className="relative flex h-full flex-col justify-between p-8 sm:p-10">
                   <div className="flex items-center justify-between">
-                    <div className="rounded-full border border-background/20 px-4 py-2 text-xs uppercase tracking-[0.26em] text-background/70">
+                    <div className="flex items-center gap-2 rounded-full border border-background/20 px-4 py-2 text-xs uppercase tracking-[0.26em] text-background/70">
+                      <PhoneCall className="size-4" aria-hidden="true" />
                       Appel entrant
                     </div>
                     <div className="flex size-12 items-center justify-center overflow-hidden rounded-full bg-background">
@@ -207,10 +225,10 @@ export default function VoiceRestaurantAuditPage() {
           <div className="mt-12 rounded-[2rem] border border-foreground/10 bg-foreground p-6 text-background shadow-[0_24px_80px_rgba(19,19,14,0.14)]">
             <div className="text-xs font-semibold uppercase tracking-[0.24em] text-background/55">KPI argent</div>
             <p className="mt-3 max-w-3xl text-2xl font-semibold leading-tight text-balance sm:text-3xl">
-              Appel décroché. Client gardé. Table remplie. CA récupéré.
+              45 € par personne à table. 90 € pour 2. 180 € pour 4. 900 € / mois si 20 personnes reviennent.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-background/65">
-              Exemple basé sur 45 € par personne. À ajuster avec le panier moyen réel de Pink Koï. Ce n’est pas une garantie.
+              Exemple basé sur 45 € par personne à table. À ajuster avec le panier moyen réel de Pink Koï. Ce n’est pas une garantie.
             </p>
           </div>
 
@@ -238,7 +256,7 @@ export default function VoiceRestaurantAuditPage() {
 
       <section className="px-5 py-12 sm:px-8">
         <div className="mx-auto max-w-7xl">
-          <MiniLabel>Pourquoi faire appel à Decroche</MiniLabel>
+          <MiniLabel>Où part l’argent</MiniLabel>
           <div className="grid gap-5 lg:grid-cols-3">
             {businessGains.map((gain) => (
               <Card key={gain.title}>
@@ -254,10 +272,10 @@ export default function VoiceRestaurantAuditPage() {
       <section className="px-5 py-12 sm:px-8" id="appel">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
-            <MiniLabel>Appel type</MiniLabel>
-            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Une discussion naturelle, côté Pink Koï.</h2>
+            <MiniLabel>Appel vocal simulé</MiniLabel>
+            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Le client pose une vraie question. La voix répond tout de suite.</h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Pas un ton robotique. La voix parle au nom du restaurant, répond directement et récupère les infos utiles avant de passer la main.
+              La voix parle au nom de Pink Koï. Elle donne l’information utile, récupère les détails, puis l’équipe confirme.
             </p>
           </div>
           <Card className="bg-foreground text-background">
@@ -314,9 +332,9 @@ export default function VoiceRestaurantAuditPage() {
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
             <MiniLabel>Ce qu’on installe</MiniLabel>
-            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Un accueil vocal testable, pas un nouveau site.</h2>
+            <h2 className="font-display text-4xl leading-tight sm:text-6xl">Un assistant vocal testable, pas un audit de site.</h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              On garde ce qui fonctionne déjà. On ajoute une couche utile : décrocher, répondre, filtrer, transmettre.
+              On ne critique pas la vitrine Pink Koï. On ajoute ce qui manque au téléphone : décrocher, répondre, filtrer, transmettre.
             </p>
           </div>
           <Card>
