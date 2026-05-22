@@ -27,6 +27,24 @@ export function parseEnvFile(path) {
   return { values: out, exists: true, malformed };
 }
 
+const ENV_ALIASES = {
+  GOOGLE_CLIENT_ID: ["GOOGLE_ADS_CLIENT_ID"],
+  GOOGLE_CLIENT_SECRET: ["GOOGLE_ADS_CLIENT_SECRET"],
+  GOOGLE_SERVICE_ACCOUNT_EMAIL: ["GOOGLE_CLIENT_EMAIL"]
+};
+
+function applyAliases(env) {
+  for (const [canonicalKey, aliases] of Object.entries(ENV_ALIASES)) {
+    if (env[canonicalKey] && String(env[canonicalKey]).trim()) continue;
+    for (const alias of aliases) {
+      if (env[alias] && String(env[alias]).trim()) {
+        env[canonicalKey] = env[alias];
+        break;
+      }
+    }
+  }
+}
+
 export function loadDecrocheEnv(localPath = ".env.local") {
   const resolvedLocal = resolve(localPath);
   const local = parseEnvFile(resolvedLocal);
@@ -54,6 +72,7 @@ export function loadDecrocheEnv(localPath = ".env.local") {
     }
   }
 
+  applyAliases(env);
   return { env, loadedFiles };
 }
 

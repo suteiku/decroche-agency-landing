@@ -40,11 +40,31 @@ Variables utilisées :
 - `GOOGLE_ADS_LANGUAGE_CONSTANT`
 - `GOOGLE_ADS_GEO_TARGET_CONSTANT`
 
+Le chargeur accepte aussi les alias déjà présents dans l’env Hermes global :
+
+- `GOOGLE_ADS_CLIENT_ID` -> `GOOGLE_CLIENT_ID`
+- `GOOGLE_ADS_CLIENT_SECRET` -> `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_CLIENT_EMAIL` -> `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+
 Par défaut :
 
 - API : `v22`
 - langue : français `languageConstants/1002`
 - zone : France `geoTargetConstants/2250`
+
+## SEO / recherche
+
+Variables utiles pour les recherches SEO et SERP :
+
+- `SERPER_API_KEY`
+- `FIRECRAWL_API_KEY`
+- `GOOGLE_PLACES_API_KEY`
+- `GOOGLE_DISCOVERY_ENGINE_PROJECT_ID`
+- `GOOGLE_DISCOVERY_ENGINE_PROJECT_NUMBER`
+- `GOOGLE_DISCOVERY_ENGINE_LOCATION`
+- `GOOGLE_DISCOVERY_ENGINE_COLLECTION`
+- `GOOGLE_DISCOVERY_ENGINE_ID`
+- `GOOGLE_DISCOVERY_ENGINE_SERVING_CONFIG`
 
 ## Composio
 
