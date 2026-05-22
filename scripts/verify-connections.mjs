@@ -6,7 +6,17 @@ const groups = {
   public_site: ["NEXT_PUBLIC_SITE_URL", "NEXT_PUBLIC_CONTACT_EMAIL"],
   hermes_telegram: ["HERMES_PROFILE", "OBSIDIAN_VAULT_PATH", "TELEGRAM_BOT_TOKEN", "TELEGRAM_ALLOWED_USERS", "TELEGRAM_HOME_CHANNEL"],
   ai_providers: ["OPENAI_API_KEY", "ANTHROPIC_API_KEY", "OPENROUTER_API_KEY", "GOOGLE_API_KEY", "GEMINI_API_KEY", "FAL_KEY", "FIRECRAWL_API_KEY"],
-  voice_assistant: ["OPENAI_API_KEY", "GEMINI_API_KEY", "GOOGLE_API_KEY", "ELEVENLABS_API_KEY", "DEEPGRAM_API_KEY", "ASSEMBLYAI_API_KEY"],
+  voice_assistant_vapi: [
+    "VAPI_API_KEY",
+    "VAPI_BASE_URL",
+    "VAPI_ASSISTANT_ID",
+    "NEXT_PUBLIC_VAPI_PUBLIC_KEY",
+    "NEXT_PUBLIC_VAPI_ASSISTANT_ID",
+    "VAPI_PHONE_NUMBER_ID",
+    "VAPI_SERVER_URL",
+    "VAPI_CREDENTIAL_ID",
+    "VAPI_WEBHOOK_SECRET"
+  ],
   seo_research: [
     "SERPER_API_KEY",
     "FIRECRAWL_API_KEY",
@@ -79,6 +89,28 @@ console.log("\n[keyword_planner]");
 console.log(`ready=${keywordPlannerReady}`);
 console.log(`customer_id_shape=${customerId ? /^\d+$/.test(customerId) : false}`);
 console.log(`api_version=${env.GOOGLE_ADS_API_VERSION || "v22"}`);
+
+console.log("\n[vapi_probe]");
+if (statusOf(env, "VAPI_API_KEY") !== "SET") {
+  console.log("status=SKIPPED_MISSING_VAPI_API_KEY");
+} else {
+  try {
+    const baseUrl = (env.VAPI_BASE_URL || "https://api.vapi.ai").replace(/\/$/, "");
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(`${baseUrl}/assistant`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${env.VAPI_API_KEY.trim()}` },
+      signal: controller.signal
+    });
+    clearTimeout(timer);
+    console.log(`http_status=${res.status}`);
+    console.log(`status=${res.ok ? "ok" : "failed"}`);
+  } catch (error) {
+    console.log("status=probe_failed");
+    console.log(`error_type=${error.constructor?.name || "Error"}`);
+  }
+}
 
 console.log("\n[composio_probe]");
 if (statusOf(env, "COMPOSIO_MCP_URL") !== "SET") {

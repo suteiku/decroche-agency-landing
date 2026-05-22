@@ -27,6 +27,27 @@ pnpm verify:env
 pnpm keywords -- "assistant ia" "agence ia" "standard téléphonique ia"
 ```
 
+## Vapi / assistants vocaux IA
+
+Préfixes à utiliser :
+
+- `VAPI_` : variables privées côté serveur uniquement, à ne jamais exposer au navigateur.
+- `NEXT_PUBLIC_VAPI_` : variables publiques autorisées côté navigateur pour le widget/client web.
+
+Variables recommandées :
+
+- `VAPI_API_KEY` : clé privée Vapi, utilisée pour l’API serveur et les actions admin.
+- `VAPI_BASE_URL=https://api.vapi.ai` : endpoint API Vapi.
+- `VAPI_ASSISTANT_ID` : assistant par défaut côté serveur.
+- `NEXT_PUBLIC_VAPI_PUBLIC_KEY` : clé publique Vapi pour le widget/client web.
+- `NEXT_PUBLIC_VAPI_ASSISTANT_ID` : assistant public à lancer depuis le site.
+- `VAPI_PHONE_NUMBER_ID` : numéro Vapi si appels entrants/sortants.
+- `VAPI_SERVER_URL` : URL webhook/API du projet si Vapi doit appeler notre serveur.
+- `VAPI_CREDENTIAL_ID` : identifiant Custom Credential Vapi pour authentifier les webhooks/tools.
+- `VAPI_WEBHOOK_SECRET` : secret local si on garde une validation maison des webhooks.
+
+Pour l’offre agence d’assistants vocaux, les clés directes `ELEVENLABS_API_KEY`, `DEEPGRAM_API_KEY` et `ASSEMBLYAI_API_KEY` ne sont pas nécessaires dans ce projet si les providers sont gérés dans Vapi.
+
 ## Google Ads Keyword Planner
 
 Variables utilisées :
