@@ -1,105 +1,63 @@
 # Environnement Decroche Agency
 
-Objectif : donner au projet tout ce qu’il peut utiliser sans mettre de secrets dans Git ou dans le chat.
+Objectif : garder uniquement les variables demandées pour Decroche : Google Ads, Google AI Studio/Gemini et Vapi.
 
-## Fichiers
+## Fichier local
 
-- `.env.local` : fichier local ignoré par Git, créé sur le VPS. Il contient la liste complète des variables attendues et des chemins de fallback locaux.
-- `.env.example` : fichier commitable avec placeholders uniquement.
-- `scripts/env-utils.mjs` : charge `.env.local` + les fallbacks sans afficher de valeurs.
-- `scripts/verify-connections.mjs` : vérifie les connexions sans imprimer de secrets.
-- `scripts/google-keyword-research.mjs` : requête Google Ads Keyword Planner en lecture seule.
+- `.env.local` : fichier local ignoré par Git, non commitable.
+- `.env.example` : modèle public avec placeholders uniquement.
+- `scripts/verify-connections.mjs` : vérifie uniquement Google Ads/Gemini/Vapi sans afficher de secrets.
 
-## Pourquoi utiliser des fallbacks
+## Google AI Studio / Gemini
 
-Les secrets déjà présents dans les profils Hermes ou dans d’autres projets ne doivent pas être recopiés partout. Le projet Decroche charge donc les chemins locaux autorisés listés dans `DECROCHE_ENV_FALLBACK_FILES`.
+Variables :
 
-Cela évite :
+- `GOOGLE_API_KEY`
+- `GEMINI_API_KEY`
 
-- de dupliquer les clés ;
-- d’exposer les valeurs ;
-- de commiter accidentellement un secret.
+## Google Ads / Keyword Planner
+
+Variables :
+
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_ADS_DEVELOPER_TOKEN`
+- `GOOGLE_ADS_REFRESH_TOKEN`
+- `GOOGLE_ADS_CUSTOMER_ID`
+- `GOOGLE_ADS_MANAGER_CUSTOMER_ID` ou `GOOGLE_ADS_LOGIN_CUSTOMER_ID`
+- `GOOGLE_ADS_API_VERSION`
+- `GOOGLE_ADS_LANGUAGE_CONSTANT`
+- `GOOGLE_ADS_GEO_TARGET_CONSTANT`
+- `GOOGLE_ADS_KEYWORD_NETWORK`
+
+Valeurs par défaut :
+
+- API : `v22`
+- langue : français `languageConstants/1002`
+- zone : France `geoTargetConstants/2250`
+- réseau : `GOOGLE_SEARCH_AND_PARTNERS`
+
+## Vapi
+
+Variables :
+
+- `VAPI_BASE_URL=https://api.vapi.ai`
+- `VAPI_API_KEY`
+- `VAPI_ASSISTANT_ID`
+- `NEXT_PUBLIC_VAPI_PUBLIC_KEY`
+- `NEXT_PUBLIC_VAPI_ASSISTANT_ID`
+- `VAPI_PHONE_NUMBER_ID`
 
 ## Commandes utiles
 
 ```bash
 pnpm verify:env
-pnpm keywords -- "assistant ia" "agence ia" "standard téléphonique ia"
+pnpm keywords -- "assistant vocal ia"
 ```
-
-## Vapi / assistants vocaux IA
-
-Préfixes à utiliser :
-
-- `VAPI_` : variables privées côté serveur uniquement, à ne jamais exposer au navigateur.
-- `NEXT_PUBLIC_VAPI_` : variables publiques autorisées côté navigateur pour le widget/client web.
-
-Variables recommandées :
-
-- `VAPI_API_KEY` : clé privée Vapi, utilisée pour l’API serveur et les actions admin.
-- `VAPI_BASE_URL=https://api.vapi.ai` : endpoint API Vapi.
-- `VAPI_ASSISTANT_ID` : assistant par défaut côté serveur.
-- `NEXT_PUBLIC_VAPI_PUBLIC_KEY` : clé publique Vapi pour le widget/client web.
-- `NEXT_PUBLIC_VAPI_ASSISTANT_ID` : assistant public à lancer depuis le site.
-- `VAPI_PHONE_NUMBER_ID` : numéro Vapi si appels entrants/sortants.
-- `VAPI_SERVER_URL` : URL webhook/API du projet si Vapi doit appeler notre serveur.
-- `VAPI_CREDENTIAL_ID` : identifiant Custom Credential Vapi pour authentifier les webhooks/tools.
-- `VAPI_WEBHOOK_SECRET` : secret local si on garde une validation maison des webhooks.
-
-Pour l’offre agence d’assistants vocaux, les clés directes `ELEVENLABS_API_KEY`, `DEEPGRAM_API_KEY` et `ASSEMBLYAI_API_KEY` ne sont pas nécessaires dans ce projet si les providers sont gérés dans Vapi.
-
-## Google Ads Keyword Planner
-
-Variables utilisées :
-
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-- `GOOGLE_ADS_REFRESH_TOKEN`
-- `GOOGLE_ADS_DEVELOPER_TOKEN`
-- `GOOGLE_ADS_CUSTOMER_ID`
-- `GOOGLE_ADS_MANAGER_CUSTOMER_ID` ou `GOOGLE_ADS_LOGIN_CUSTOMER_ID`
-- `GOOGLE_ADS_LANGUAGE_CONSTANT`
-- `GOOGLE_ADS_GEO_TARGET_CONSTANT`
-
-Le chargeur accepte aussi les alias déjà présents dans l’env Hermes global :
-
-- `GOOGLE_ADS_CLIENT_ID` -> `GOOGLE_CLIENT_ID`
-- `GOOGLE_ADS_CLIENT_SECRET` -> `GOOGLE_CLIENT_SECRET`
-- `GOOGLE_CLIENT_EMAIL` -> `GOOGLE_SERVICE_ACCOUNT_EMAIL`
-
-Par défaut :
-
-- API : `v22`
-- langue : français `languageConstants/1002`
-- zone : France `geoTargetConstants/2250`
-
-## SEO / recherche
-
-Variables utiles pour les recherches SEO et SERP :
-
-- `SERPER_API_KEY`
-- `FIRECRAWL_API_KEY`
-- `GOOGLE_PLACES_API_KEY`
-- `GOOGLE_DISCOVERY_ENGINE_PROJECT_ID`
-- `GOOGLE_DISCOVERY_ENGINE_PROJECT_NUMBER`
-- `GOOGLE_DISCOVERY_ENGINE_LOCATION`
-- `GOOGLE_DISCOVERY_ENGINE_COLLECTION`
-- `GOOGLE_DISCOVERY_ENGINE_ID`
-- `GOOGLE_DISCOVERY_ENGINE_SERVING_CONFIG`
-
-## Composio
-
-Variables attendues :
-
-- `COMPOSIO_API_KEY`
-- `COMPOSIO_MCP_URL`
-- `COMPOSIO_ENTITY_ID=decroche`
-
-Le script `verify:env` ne publie aucune donnée externe ; il vérifie présence et accessibilité basique.
 
 ## Règles
 
 - Ne jamais afficher les valeurs de `.env.local`.
 - Ne jamais commiter `.env.local`.
-- Ne jamais coller une clé dans Telegram.
-- Les actions Ads réelles restent interdites sans validation Bruno. La recherche Keyword Planner est lecture seule.
+- Ne jamais coller une clé dans Telegram/GitHub/chat.
+- Aucune action Google Ads réelle sans validation Bruno ; la recherche Keyword Planner reste en lecture seule.
