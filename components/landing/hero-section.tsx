@@ -29,8 +29,8 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative flex min-h-screen flex-col justify-center overflow-hidden">
-      <div className="pointer-events-none absolute right-8 top-1/2 h-[280px] w-[280px] -translate-y-1/2 opacity-60 md:right-16 md:h-[380px] md:w-[380px] md:opacity-70 lg:right-24 lg:h-[480px] lg:w-[480px]">
+    <section className="relative flex min-h-[92svh] flex-col justify-center overflow-hidden md:min-h-screen">
+      <div className="pointer-events-none absolute left-1/2 top-[36%] z-0 h-[245px] w-[245px] -translate-x-1/2 -translate-y-1/2 opacity-[0.18] sm:h-[310px] sm:w-[310px] sm:opacity-[0.24] md:left-auto md:right-16 md:top-1/2 md:h-[380px] md:w-[380px] md:translate-x-0 md:opacity-60 lg:right-24 lg:h-[480px] lg:w-[480px] lg:opacity-70">
         <AnimatedSphere />
       </div>
 
@@ -73,16 +73,8 @@ export function HeroSection() {
             <span className="block">
               qui{" "}
               <span className="relative inline-block text-primary">
-                <span key={wordIndex} className="inline-flex" aria-live="polite">
-                  {words[wordIndex].split("").map((char, index) => (
-                    <span
-                      key={`${wordIndex}-${index}`}
-                      className="inline-block animate-char-in"
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      {char}
-                    </span>
-                  ))}
+                <span key={wordIndex} className="inline-block" aria-live="polite">
+                  {words[wordIndex]}
                 </span>
                 <span className="absolute -bottom-2 left-0 right-0 h-3 bg-primary/10" aria-hidden="true" />
               </span>

@@ -239,26 +239,26 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 py-12 lg:py-20 border-b border-foreground/10">
+      <div className="flex flex-col gap-6 border-b border-foreground/10 py-9 sm:py-12 lg:flex-row lg:gap-16 lg:py-16">
         {/* Number */}
         <div className="shrink-0">
           <span className="font-mono text-sm text-primary">{feature.number}</span>
         </div>
         
         {/* Content */}
-        <div className="flex-1 grid lg:grid-cols-2 gap-8 items-center">
+        <div className="grid flex-1 items-center gap-6 sm:gap-8 lg:grid-cols-2">
           <div>
-            <h3 className="text-3xl lg:text-4xl font-display mb-4 group-hover:translate-x-2 transition-transform duration-500">
+            <h3 className="mb-3 font-display text-3xl transition-transform duration-500 group-hover:translate-x-2 lg:text-4xl">
               {feature.title}
             </h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               {feature.description}
             </p>
           </div>
           
           {/* Visual */}
           <div className="flex justify-center lg:justify-end">
-            <div className="w-48 h-40 text-primary">
+            <div className="h-32 w-40 text-primary sm:h-40 sm:w-48">
               <AnimatedVisual type={feature.visual} />
             </div>
           </div>
@@ -288,11 +288,11 @@ export function FeaturesSection() {
     <section
       id="features"
       ref={sectionRef}
-      className="relative py-24 lg:py-32"
+      className="relative py-16 sm:py-20 lg:py-32"
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-12">
         {/* Header */}
-        <div className="mb-16 lg:mb-24">
+        <div className="mb-10 sm:mb-14 lg:mb-20">
           <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
             <span className="w-8 h-px bg-primary/40" />
             L'offre
