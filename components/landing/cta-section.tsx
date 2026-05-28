@@ -1,102 +1,97 @@
-"use client";
+"use client"
 
-import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone } from "lucide-react";
+import { useEffect, useRef, useState } from "react"
+import { ArrowRight, Mail, Phone } from "lucide-react"
+
+import { Button } from "@/components/primitives/button"
+import { primaryCta, safeExternalRel, site } from "@/lib/site"
 
 export function CtaSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
+        if (entry.isIntersecting) setIsVisible(true)
       },
-      { threshold: 0.2 }
-    );
+      { threshold: 0.2 },
+    )
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect()
     setMousePosition({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
-  };
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100,
+    })
+  }
 
   return (
-    <section ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section ref={sectionRef} className="relative overflow-hidden py-24 lg:py-32">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div
-          className={`relative border border-foreground transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          className={`relative border border-foreground transition-[opacity,transform] duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
           onMouseMove={handleMouseMove}
         >
-          {/* Spotlight effect */}
-          <div 
-            className="absolute inset-0 opacity-10 pointer-events-none transition-opacity duration-300"
+          <div
+            className="pointer-events-none absolute inset-0 opacity-10 transition-opacity duration-300"
             style={{
-              background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(0,0,0,0.15), transparent 40%)`
+              background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(0,0,0,0.15), transparent 40%)`,
             }}
+            aria-hidden="true"
           />
-          
-          <div className="relative z-10 px-8 lg:px-16 py-16 lg:py-24">
-            <div className="flex flex-col items-center text-center gap-12">
-              {/* Content */}
+
+          <div className="relative z-10 px-8 py-16 lg:px-16 lg:py-24">
+            <div className="flex flex-col items-center gap-12 text-center">
               <div>
-                <h2 className="text-4xl lg:text-7xl font-display tracking-tight mb-8 leading-[0.95]">
+                <h2 className="text-balance mb-8 font-display text-4xl leading-[0.95] tracking-tight lg:text-7xl">
                   Ne perdez plus
                   <br />
                   <span className="text-primary">un seul appel.</span>
                 </h2>
 
-                <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-2xl mx-auto">
-                  Vos concurrents qui ont déjà l'IA décroche chaque appel en moins d'une sonnerie. 
-                  Vous, combien d'opportunités laissez-vous sur la table chaque mois ?
+                <p className="text-pretty mx-auto mb-12 max-w-2xl text-xl leading-relaxed text-muted-foreground">
+                  Vos concurrents répondent pendant que vous servez, dormez ou gérez l’urgence.
+                  Combien d’opportunités laissez-vous partir chaque mois ?
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Button
-                    size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 h-14 text-base rounded-full group"
-                    asChild
-                  >
-                    <a href="https://cal.com/bruno.crp/30min" target="_blank" rel="noopener noreferrer">
-                      <Phone className="w-4 h-4 mr-2" />
-                      Tester la démo
-                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                  <Button size="lg" className="group" asChild>
+                    <a href={site.calUrl} target="_blank" rel={safeExternalRel}>
+                      <Phone className="size-4" aria-hidden="true" />
+                      {primaryCta}
+                      <ArrowRight
+                        className="size-4 transition-transform duration-300 group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
                     </a>
                   </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
-                    asChild
-                  >
-                    <a href="mailto:brunocadilhe3000@gmail.com">
-                      Nous écrire
+                  <Button size="lg" variant="outline" asChild>
+                    <a href={`mailto:${site.email}`}>
+                      <Mail className="size-4" aria-hidden="true" />
+                      Écrire à Decroche
                     </a>
                   </Button>
                 </div>
 
-                <p className="text-sm text-muted-foreground mt-8 font-mono">
-                  Démonstration gratuite de 30 minutes. Sans engagement.
+                <p className="mt-8 font-mono text-sm text-muted-foreground">
+                  Diagnostic de 30 minutes. Sans engagement. Objectif : mesurer le manque à gagner.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Decorative corner */}
-          <div className="absolute top-0 right-0 w-32 h-32 border-b border-l border-foreground/10" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 border-t border-r border-foreground/10" />
+          <div className="absolute right-0 top-0 h-32 w-32 border-b border-l border-foreground/10" aria-hidden="true" />
+          <div className="absolute bottom-0 left-0 h-32 w-32 border-r border-t border-foreground/10" aria-hidden="true" />
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -6,32 +6,45 @@ const features = [
   {
     number: "01",
     title: "Réception 24/7",
-    description: "Jamais d'appel manqué, même le dimanche soir. Votre assistant décroche en moins d'une sonnerie, à toute heure.",
+    description:
+      "Jamais d’appel manqué, même le dimanche soir. Votre assistant décroche vite, à toute heure utile.",
     visual: "reception",
   },
   {
     number: "02",
     title: "Qualification intelligente",
-    description: "L'IA identifie le motif de l'appel, priorise les leads chauds et redirige vers le bon service.",
+    description:
+      "L’IA identifie le motif de l’appel, priorise les demandes chaudes et transmet au bon endroit.",
     visual: "qualify",
   },
   {
     number: "03",
     title: "Prise de RDV & CRM",
-    description: "Intégration directe à votre agenda (Google Calendar, Doctolib) et votre outil de suivi. Zéro saisie manuelle.",
+    description:
+      "Intégration à l’agenda et au suivi client : rendez-vous préparé, fiche créée, zéro saisie inutile.",
     visual: "crm",
   },
   {
     number: "04",
-    title: "Conformité & Transfert",
-    description: "Mention AI Act en début d'appel, transfert humain avec résumé complet de la conversation. Zéro risque juridique.",
+    title: "Cadre & transfert humain",
+    description:
+      "Transparence IA, limites écrites, transfert humain avec résumé complet quand la demande sort du cadre.",
     visual: "transfer",
   },
 ];
 
+const qualifyNodes = [
+  { x: "150", y: "80" },
+  { x: "125", y: "123.301" },
+  { x: "75", y: "123.301" },
+  { x: "50", y: "80" },
+  { x: "75", y: "36.699" },
+  { x: "125", y: "36.699" },
+];
+
 function ReceptionVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <defs>
         <clipPath id="receptionClip">
           <rect x="30" y="20" width="140" height="120" rx="4" />
@@ -76,51 +89,47 @@ function ReceptionVisual() {
 
 function QualifyVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <circle cx="100" cy="80" r="12" fill="currentColor">
         <animate attributeName="r" values="12;14;12" dur="2s" repeatCount="indefinite" />
       </circle>
-      {[0, 1, 2, 3, 4, 5].map((i) => {
-        const angle = (i * 60) * (Math.PI / 180);
-        const radius = 50;
-        return (
-          <g key={i}>
-            <line
-              x1="100"
-              y1="80"
-              x2={100 + Math.cos(angle) * radius}
-              y2={80 + Math.sin(angle) * radius}
-              stroke="currentColor"
-              strokeWidth="1"
-              opacity="0.3"
-            >
-              <animate
-                attributeName="opacity"
-                values="0.3;0.8;0.3"
-                dur="2s"
-                begin={`${i * 0.3}s`}
-                repeatCount="indefinite"
-              />
-            </line>
-            <circle
-              cx={100 + Math.cos(angle) * radius}
-              cy={80 + Math.sin(angle) * radius}
-              r="6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <animate
-                attributeName="r"
-                values="6;8;6"
-                dur="2s"
-                begin={`${i * 0.3}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
-          </g>
-        );
-      })}
+      {qualifyNodes.map((node, i) => (
+        <g key={`${node.x}-${node.y}`}>
+          <line
+            x1="100"
+            y1="80"
+            x2={node.x}
+            y2={node.y}
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.3"
+          >
+            <animate
+              attributeName="opacity"
+              values="0.3;0.8;0.3"
+              dur="2s"
+              begin={`${i * 0.3}s`}
+              repeatCount="indefinite"
+            />
+          </line>
+          <circle
+            cx={node.x}
+            cy={node.y}
+            r="6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <animate
+              attributeName="r"
+              values="6;8;6"
+              dur="2s"
+              begin={`${i * 0.3}s`}
+              repeatCount="indefinite"
+            />
+          </circle>
+        </g>
+      ))}
       <circle cx="100" cy="80" r="30" fill="none" stroke="currentColor" strokeWidth="1" opacity="0">
         <animate attributeName="r" values="20;60" dur="2s" repeatCount="indefinite" />
         <animate attributeName="opacity" values="0.5;0" dur="2s" repeatCount="indefinite" />
@@ -131,7 +140,7 @@ function QualifyVisual() {
 
 function CrmVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <g>
         <rect x="30" y="50" width="50" height="60" rx="4" fill="none" stroke="currentColor" strokeWidth="2" />
         <text x="55" y="85" textAnchor="middle" fontSize="20" fontFamily="monospace" fill="currentColor">A</text>
@@ -163,7 +172,7 @@ function CrmVisual() {
 
 function TransferVisual() {
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-hidden="true">
       <path
         d="M 100 20 L 150 40 L 150 90 Q 150 130 100 145 Q 50 130 50 90 L 50 40 Z"
         fill="none"
@@ -230,31 +239,31 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
   return (
     <div
       ref={cardRef}
-      className={`group relative transition-all duration-700 ${
+      className={`group relative transition-[opacity,transform] duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 py-12 lg:py-20 border-b border-foreground/10">
+      <div className="flex flex-col gap-6 border-b border-foreground/10 py-9 sm:py-12 lg:flex-row lg:gap-16 lg:py-16">
         {/* Number */}
         <div className="shrink-0">
           <span className="font-mono text-sm text-primary">{feature.number}</span>
         </div>
         
         {/* Content */}
-        <div className="flex-1 grid lg:grid-cols-2 gap-8 items-center">
+        <div className="grid flex-1 items-center gap-6 sm:gap-8 lg:grid-cols-2">
           <div>
-            <h3 className="text-3xl lg:text-4xl font-display mb-4 group-hover:translate-x-2 transition-transform duration-500">
+            <h3 className="mb-3 font-display text-3xl transition-transform duration-500 group-hover:translate-x-2 lg:text-4xl">
               {feature.title}
             </h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               {feature.description}
             </p>
           </div>
           
           {/* Visual */}
           <div className="flex justify-center lg:justify-end">
-            <div className="w-48 h-40 text-primary">
+            <div className="h-32 w-40 text-primary sm:h-40 sm:w-48">
               <AnimatedVisual type={feature.visual} />
             </div>
           </div>
@@ -284,23 +293,23 @@ export function FeaturesSection() {
     <section
       id="features"
       ref={sectionRef}
-      className="relative py-24 lg:py-32"
+      className="relative py-16 sm:py-20 lg:py-32"
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-12">
         {/* Header */}
-        <div className="mb-16 lg:mb-24">
+        <div className="mb-10 sm:mb-14 lg:mb-20">
           <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
             <span className="w-8 h-px bg-primary/40" />
             L'offre
           </span>
           <h2
-            className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
+            className={`text-4xl lg:text-6xl font-display tracking-tight transition-[opacity,transform] duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
             Ce que fait votre
             <br />
-            <span className="text-primary">assistant vocal.</span>
+            <span className="text-primary">assistant IA.</span>
           </h2>
         </div>
 

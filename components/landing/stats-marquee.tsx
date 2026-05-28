@@ -1,53 +1,49 @@
-"use client";
-
-import { useEffect, useState, useRef } from "react";
-
 const stats = [
-  { value: "83%", label: "d'appels manqués hors heures", sub: "D'OUVERTURE" },
-  { value: "350-900€", label: "CA perdu", sub: "PAR APPEL" },
-  { value: "28 000€", label: "économisés", sub: "PAR POSTE / AN" },
-  { value: "24/7", label: "disponibilité", sub: "GARANTIE" },
-];
+  {
+    value: "83%",
+    label: "d’appels manqués hors horaires",
+    sub: "RISQUE À MESURER",
+  },
+  {
+    value: "350–900€",
+    label: "CA potentiel par appel manqué",
+    sub: "ORDRE DE GRANDEUR",
+  },
+  {
+    value: "28 000€",
+    label: "coût annuel d’un poste accueil",
+    sub: "BASE DE COMPARAISON",
+  },
+  {
+    value: "24/7",
+    label: "capacité de réponse simple",
+    sub: "HORS DÉCISION HUMAINE",
+  },
+]
 
 export function StatsMarquee() {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div 
-      ref={ref}
-      className={`relative py-8 border-t border-foreground/10 overflow-hidden transition-all duration-700 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      }`}
+    <section
+      className="relative border-y border-foreground/10 py-5 sm:py-7 lg:py-8"
+      aria-label="Indicateurs commerciaux Decroche"
     >
-      <div className="flex gap-24 md:gap-32 marquee whitespace-nowrap">
-        {[...Array(2)].map((_, i) => (
-          <div key={i} className="flex gap-24 md:gap-32">
-            {stats.map((stat) => (
-              <div key={`${stat.label}-${i}`} className="flex items-baseline gap-4 shrink-0">
-                <span className="text-4xl lg:text-5xl font-display text-foreground shrink-0">{stat.value}</span>
-                <span className="text-sm text-muted-foreground leading-tight whitespace-nowrap">
-                  {stat.label}
-                  <span className="block text-[10px] font-mono uppercase tracking-wider text-muted-foreground/70 mt-1">
-                    {stat.sub}
-                  </span>
-                </span>
-              </div>
-            ))}
-          </div>
-        ))}
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4 lg:gap-x-8">
+          {stats.map((stat) => (
+            <div key={stat.label} className="min-w-0">
+              <p className="font-display text-[clamp(2rem,10vw,3.35rem)] leading-none tracking-tight text-foreground">
+                {stat.value}
+              </p>
+              <p className="mt-2 max-w-[12rem] text-sm leading-snug text-muted-foreground sm:text-[0.95rem]">
+                {stat.label}
+              </p>
+              <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70">
+                {stat.sub}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    </section>
+  )
 }

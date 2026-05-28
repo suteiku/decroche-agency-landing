@@ -7,18 +7,25 @@ const steps = [
   {
     number: "I",
     title: "Audit (30 min)",
-    description: "On analyse vos besoins, votre flux d'appels et vos outils existants. Pas de blabla, juste les faits.",
+    description: "On analyse vos besoins, votre flux d’appels et vos outils existants. Pas de blabla, juste les faits.",
   },
   {
     number: "II",
     title: "Configuration (10 jours)",
-    description: "Voix française, script métier, intégrations CRM et agenda. On teste en aveugle avant la mise en ligne.",
+    description: "Voix française, script métier, intégrations CRM et agenda. On teste avant la mise en ligne.",
   },
   {
     number: "III",
-    title: "Live + Optimisation",
-    description: "Mise en production, monitoring en temps réel et ajustements hebdomadaires. Vous dormez, on travaille.",
+    title: "Live + optimisation",
+    description: "Mise en production progressive, monitoring et ajustements. Vous dormez, le système continue de capter.",
   },
+];
+
+const mobileFlow = [
+  { title: "Appel entrant", text: "Réponse 24/7" },
+  { title: "Qualification", text: "Motif, urgence, coordonnées" },
+  { title: "Action utile", text: "RDV, fiche, transfert" },
+  { title: "Humain final", text: "Résumé + reprise claire" },
 ];
 
 /* ─── Flux d'appel — ligne qui avance + cercles qui s'illuminent ─── */
@@ -29,8 +36,14 @@ function FluxAppel() {
   // Puis tout s'éteint et recommence
 
   return (
-    <div className="w-full max-w-5xl mx-auto">
-      <svg viewBox="0 0 960 300" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+    <div className="mx-auto hidden w-full max-w-5xl sm:block">
+      <svg
+        viewBox="0 0 960 300"
+        className="w-full h-auto"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Flux d’appel : appel entrant, qualification, action, résultat confirmé"
+      >
         <defs>
           <linearGradient id="guideLine" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="hsl(190, 100%, 65%)" />
@@ -202,7 +215,7 @@ export function HowItWorksSection() {
     <section
       id="how-it-works"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-foreground text-background overflow-hidden"
+      className="relative overflow-hidden bg-foreground pb-16 pt-28 text-background sm:py-20 lg:py-32"
     >
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute inset-0" style={{
@@ -210,51 +223,64 @@ export function HowItWorksSection() {
         }} />
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="mb-16 lg:mb-24 text-center lg:text-left">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-12">
+        <div className="mb-10 text-center sm:mb-14 lg:mb-20 lg:text-left">
           <span className="inline-flex items-center gap-3 text-sm font-mono text-background/50 mb-6">
             <span className="w-8 h-px bg-accent/40" />
             Process
           </span>
           <h2
-            className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
+            className={`text-4xl lg:text-6xl font-display tracking-tight transition-[opacity,transform] duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Trois étapes.
+            En 3 étapes.
             <br />
-            <span className="text-background/50">Zéro complexité.</span>
+            <span className="text-background/50">De l’audit au live.</span>
           </h2>
         </div>
 
         {/* 1. Flux d'appel */}
-        <div className="mb-16 lg:mb-20">
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-accent/60 mb-10 uppercase tracking-widest">
+        <div className="mb-12 lg:mb-20">
+          <span className="mb-6 inline-flex items-center gap-3 text-sm font-mono uppercase tracking-widest text-accent/70 sm:mb-10">
             <span className="w-6 h-px bg-accent/40" />
             Flux d&apos;appel
             <span className="w-6 h-px bg-accent/40" />
           </span>
+          <ol className="grid gap-3 sm:hidden" aria-label="Flux d’appel mobile">
+            {mobileFlow.map((item, index) => (
+              <li key={item.title} className="flex items-start gap-4 rounded-2xl border border-background/10 bg-background/[0.04] p-4">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-xs text-accent">
+                  {index + 1}
+                </span>
+                <span>
+                  <span className="block font-medium text-background">{item.title}</span>
+                  <span className="mt-1 block text-sm leading-relaxed text-background/65">{item.text}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
           <FluxAppel />
         </div>
 
         {/* 2. Vos 3 étapes — label + cartes */}
-        <div className="pt-12 border-t border-background/10">
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-accent/60 mb-10 uppercase tracking-widest">
+        <div className="border-t border-background/10 pt-10 sm:pt-12">
+          <span className="mb-6 inline-flex items-center gap-3 text-sm font-mono uppercase tracking-widest text-accent/70 sm:mb-10">
             <span className="w-6 h-px bg-accent/40" />
             Vos 3 étapes
             <span className="w-6 h-px bg-accent/40" />
           </span>
-          <div className="grid lg:grid-cols-3 gap-px bg-background/10">
+          <div className="grid gap-px bg-background/10 lg:grid-cols-3">
             {steps.map((step) => (
               <div
                 key={step.number}
-                className="bg-foreground p-10 lg:p-14 border-b lg:border-b-0 lg:border-r border-background/10 last:border-r-0"
+                className="border-b border-background/10 bg-foreground p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-12 last:border-b-0 last:border-r-0"
               >
                 <div className="flex items-start gap-6">
                   <span className="font-display text-4xl text-accent/60 shrink-0">{step.number}</span>
                   <div>
                     <h3 className="text-2xl lg:text-3xl font-display mb-4">{step.title}</h3>
-                    <p className="text-background/60 leading-relaxed text-lg">{step.description}</p>
+                    <p className="text-base leading-relaxed text-background/65 sm:text-lg">{step.description}</p>
                   </div>
                 </div>
               </div>
