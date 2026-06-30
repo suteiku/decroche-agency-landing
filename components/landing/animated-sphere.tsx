@@ -12,16 +12,17 @@ export function AnimatedSphere() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const chars = "░▒▓█▀▄▌▐│─┤├┴┬╭╮╰╯";
     let time = 0;
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -43,8 +44,8 @@ export function AnimatedSphere() {
       const points: { x: number; y: number; z: number; char: string }[] = [];
 
       // Generate sphere points
-      for (let phi = 0; phi < Math.PI * 2; phi += 0.15) {
-        for (let theta = 0; theta < Math.PI; theta += 0.15) {
+      for (let phi = 0; phi < Math.PI * 2; phi += 0.2) {
+        for (let theta = 0; theta < Math.PI; theta += 0.2) {
           const x = Math.sin(theta) * Math.cos(phi + time * 0.5);
           const y = Math.sin(theta) * Math.sin(phi + time * 0.5);
           const z = Math.cos(theta);

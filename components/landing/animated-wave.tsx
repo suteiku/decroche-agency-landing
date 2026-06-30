@@ -12,16 +12,17 @@ export function AnimatedWave() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const chars = "·∘○◯◌●◉";
     let time = 0;
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -35,8 +36,8 @@ export function AnimatedWave() {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      const cols = Math.floor(rect.width / 20);
-      const rows = Math.floor(rect.height / 20);
+      const cols = Math.floor(rect.width / 26);
+      const rows = Math.floor(rect.height / 26);
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {

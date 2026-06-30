@@ -4,14 +4,26 @@ import { useEffect, useRef, useState } from "react";
 
 export function CalSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [shouldLoadCal, setShouldLoadCal] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!("IntersectionObserver" in window)) {
+      const timeoutId = setTimeout(() => {
+        setIsVisible(true);
+        setShouldLoadCal(true);
+      }, 0);
+      return () => clearTimeout(timeoutId);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
+        if (!entry.isIntersecting) return;
+        setIsVisible(true);
+        setShouldLoadCal(true);
+        observer.disconnect();
       },
-      { threshold: 0.1 }
+      { rootMargin: "480px 0px", threshold: 0.01 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -58,13 +70,30 @@ export function CalSection() {
           }`}
         >
           <div className="rounded-2xl overflow-hidden border border-background/10 bg-background/5 backdrop-blur-sm">
-            <iframe
-              src="https://cal.com/bruno.crp/30min?embed=true&theme=dark&layout=month_view"
-              className="w-full min-h-[700px]"
-              frameBorder="0"
-              allow="camera; microphone; autoplay; fullscreen"
-              title="Réserver un rendez-vous avec Decroche.agency"
-            />
+            {shouldLoadCal ? (
+              <iframe
+                src="https://cal.com/bruno.crp/30min?embed=true&theme=dark&layout=month_view"
+                className="w-full min-h-[700px]"
+                frameBorder="0"
+                loading="lazy"
+                allow="camera; microphone; autoplay; fullscreen"
+                title="Réserver un rendez-vous avec Decroche.agency"
+              />
+            ) : (
+              <div className="flex min-h-[520px] flex-col items-center justify-center gap-4 p-8 text-center">
+                <p className="max-w-md text-background/60">
+                  Le calendrier Cal.com se charge seulement quand cette section approche pour alléger le premier affichage.
+                </p>
+                <a
+                  href="https://cal.com/bruno.crp/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground"
+                >
+                  Ouvrir le calendrier
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

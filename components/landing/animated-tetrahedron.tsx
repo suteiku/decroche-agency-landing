@@ -12,16 +12,17 @@ export function AnimatedTetrahedron() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const chars = "░▒▓█▀▄▌▐│─┤├┴┬╭╮╰╯";
     let time = 0;
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -86,7 +87,7 @@ export function AnimatedTetrahedron() {
         const v1 = vertices[i];
         const v2 = vertices[j];
 
-        for (let t = 0; t <= 1; t += 0.05) {
+        for (let t = 0; t <= 1; t += 0.07) {
           let point = {
             x: v1.x + (v2.x - v1.x) * t,
             y: v1.y + (v2.y - v1.y) * t,
@@ -116,8 +117,8 @@ export function AnimatedTetrahedron() {
         const v2 = vertices[j];
         const v3 = vertices[k];
 
-        for (let u = 0; u <= 1; u += 0.12) {
-          for (let v = 0; v <= 1 - u; v += 0.12) {
+        for (let u = 0; u <= 1; u += 0.16) {
+          for (let v = 0; v <= 1 - u; v += 0.16) {
             const w = 1 - u - v;
             let point = {
               x: v1.x * u + v2.x * v + v3.x * w,
